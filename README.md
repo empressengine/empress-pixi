@@ -59,12 +59,12 @@ empress.init();
 
 ## Лицензия
 
-EmpressApp распространяется под лицензией MIT.
+Empress Pixi распространяется под лицензией MIT.
 
 ```text
 MIT License
 
-Copyright (c) 2025 EmpressApp Game Framework
+Copyright (c) 2025 Empress Pixi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
