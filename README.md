@@ -10,6 +10,10 @@
 npm install empress-pixi
 ```
 
+## Документация
+
+Вся техническая документация доступна по ссылке [Empress Engine](https://empressengine.github.io/empress-documentation/intro).
+
 ## Использование
 
 ```typescript
