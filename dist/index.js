@@ -596,7 +596,7 @@ class j {
     let s = !1;
     if ("asset" in t) {
       const i = this._assetsManager.getBundle(t.asset);
-      if (!i) throw new Error("No such asset");
+      if (!i) throw new Error("No such asset" + t.asset.toString());
       i.status === P.Pending && (i.loaded.then(() => {
         this.create(t, e);
       }), s = !0);
