@@ -59,7 +59,7 @@ export class ViewBuilder implements IViewBuilder {
 
         if ('asset' in options) {
             const asset = this._assetsManager.getBundle(options.asset);
-            if (!asset) throw new Error('No such asset');
+            if (!asset) throw new Error('No such asset' + options.asset.toString());
 
             if (asset.status === AssetStatus.Pending) {
                 asset.loaded.then(() => {
