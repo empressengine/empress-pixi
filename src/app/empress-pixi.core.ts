@@ -13,6 +13,7 @@ import { SpineController, SpineUtils } from '@features/spine-controller';
 import { TweenSystem } from '@features/tween';
 import { SceneController } from '@core/scene';
 import { FlowController } from '@features/flow-controller';
+import { PrefabService } from '@features/prefab-service';
 
 export class EmpressPixiCore extends EmpressCore  {
 
@@ -57,6 +58,7 @@ export class EmpressPixiCore extends EmpressCore  {
     private initializeDependencies(app: Application): void {
         const assetsManager = new AssetsManager();
         const viewBuilder = new ViewBuilder(assetsManager);
+        const prefabService = new PrefabService(viewBuilder);
         const viewEntity = new ViewEntity();
         const loader = new Loader(assetsManager);
         const layers = new Layers();
@@ -73,6 +75,7 @@ export class EmpressPixiCore extends EmpressCore  {
         this.registerGlobalServices([
             { provide: AssetsManager, useFactory: () => assetsManager }, 
             { provide: ViewBuilder, useFactory: () => viewBuilder },
+            { provide: PrefabService, useFactory: () => prefabService },
             { provide: ViewEntity, useFactory: () => viewEntity },
             { provide: Loader, useFactory: () => loader },
             { provide: Layers, useFactory: () => layers },
