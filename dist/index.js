@@ -1,9 +1,9 @@
-import { Signal as ot, Entity as Ot, ServiceContainer as l, Utils as Dt, EntityStorage as Wt, DeferredPromise as R, EmpressCore as Pt, LifeCycle as Q, ExecutionController as Lt } from "empress-core";
-import { BitmapFontData as Ft, BitmapFont as Z, Assets as q, Texture as Rt, Spritesheet as qt, Container as x, Application as U, Graphics as K, Sprite as ct, BitmapText as ht, TextStyle as zt, Text as lt, NineSlicePlane as ut } from "pixi.js";
-import * as $t from "@pixi/layers";
-import { Group as Ut, Layer as Gt } from "@pixi/layers";
-import * as Nt from "@pixi/particle-emitter";
-import { Spine as dt } from "pixi-spine";
+import { Signal as dt, Entity as Pt, ServiceContainer as l, Utils as Dt, EntityStorage as Wt, DeferredPromise as z, EmpressCore as Lt, LifeCycle as it, ExecutionController as Ft } from "empress-core";
+import { BitmapFontData as Rt, BitmapFont as st, Assets as q, Texture as zt, Spritesheet as qt, Container as b, Application as G, Graphics as nt, Sprite as X, BitmapText as Y, TextStyle as $t, Text as J, NineSlicePlane as Q } from "pixi.js";
+import * as Nt from "@pixi/layers";
+import { Group as Gt, Layer as Ut } from "@pixi/layers";
+import * as jt from "@pixi/particle-emitter";
+import { Spine as Z } from "pixi-spine";
 class B {
   constructor() {
     this._groups = /* @__PURE__ */ new Map(), this._layers = /* @__PURE__ */ new Map();
@@ -11,63 +11,63 @@ class B {
   setStage(t) {
     this._stage = t;
   }
-  createGroups(t, e, s) {
-    var a;
-    const i = new Ut(e, s), r = new Gt(i);
-    r.name = t, this._groups.set(t, i), this._layers.set(t, r), (a = this._stage) == null || a.addChild(r);
+  createGroups(t, e, i) {
+    var o;
+    const s = new Gt(e, i), r = new Ut(s);
+    r.name = t, this._groups.set(t, s), this._layers.set(t, r), (o = this._stage) == null || o.addChild(r);
   }
   getGroup(t) {
     return this._groups.get(t);
   }
   setLayer(t, e) {
-    const s = this._groups.get(t);
-    s && (e.parentGroup = s, this.sort(t));
+    const i = this._groups.get(t);
+    i && (e.parentGroup = i, this.sort(t));
   }
   setOrder(t, e) {
     t.zOrder = e;
   }
   sort(t) {
-    var s, i;
-    (s = this._stage) == null || s.sortChildren(), (i = this._stage) == null || i.updateStage();
+    var i, s;
+    (i = this._stage) == null || i.sortChildren(), (s = this._stage) == null || s.updateStage();
     const e = this._layers.get(t);
     e && e.sortChildren();
   }
   sortAll() {
     var t, e;
-    (t = this._stage) == null || t.sortChildren(), (e = this._stage) == null || e.updateStage(), Array.from(this._layers.values()).forEach((s) => {
-      s.sortChildren();
+    (t = this._stage) == null || t.sortChildren(), (e = this._stage) == null || e.updateStage(), Array.from(this._layers.values()).forEach((i) => {
+      i.sortChildren();
     });
-  }
-}
-class jt {
-  constructor(t) {
-    this._assetsManager = t;
-  }
-  build(t, e, s) {
-    const i = s[t], r = i.textures;
-    for (let a in i.animations) {
-      this._assetsManager.add(t);
-      const c = i.animations[a];
-      this._assetsManager.updateOnLoad(t, [{ name: a, asset: c, bundle: e }]);
-    }
-    for (let a in r)
-      this._assetsManager.updateOnLoad(e, [{ name: a, asset: r[a], bundle: e }]);
-  }
-}
-class Vt {
-  constructor(t) {
-    this._assetsManager = t;
-  }
-  build(t, e, s) {
-    this._assetsManager.updateOnLoad(e, [{ name: t, asset: s[t], bundle: e }]);
   }
 }
 class Ht {
   constructor(t) {
     this._assetsManager = t;
   }
-  build(t, e, s) {
-    const i = new Ft(), r = s[t], a = {
+  build(t, e, i) {
+    const s = i[t], r = s.textures;
+    for (let o in s.animations) {
+      this._assetsManager.add(t);
+      const c = s.animations[o];
+      this._assetsManager.updateOnLoad(t, [{ name: o, asset: c, bundle: e }]);
+    }
+    for (let o in r)
+      this._assetsManager.updateOnLoad(e, [{ name: o, asset: r[o], bundle: e }]);
+  }
+}
+class Vt {
+  constructor(t) {
+    this._assetsManager = t;
+  }
+  build(t, e, i) {
+    this._assetsManager.updateOnLoad(e, [{ name: t, asset: i[t], bundle: e }]);
+  }
+}
+class Xt {
+  constructor(t) {
+    this._assetsManager = t;
+  }
+  build(t, e, i) {
+    const s = new Rt(), r = i[t], o = {
       dot: ".",
       comma: ",",
       usd: "$",
@@ -75,58 +75,58 @@ class Ht {
       space: " ",
       dash: "-",
       plus: "+"
-    }, c = r.data.frames, o = Object.keys(c).map((u, _) => {
-      i.page.push({
-        id: _,
+    }, c = r.data.frames, a = Object.keys(c).map((u, d) => {
+      s.page.push({
+        id: d,
         file: ""
       });
-      const A = (u.length > 1 ? a[u] : u).charCodeAt(0), w = r.textures[u];
-      return i.char.push({
+      const A = (u.length > 1 ? o[u] : u).charCodeAt(0), v = r.textures[u];
+      return s.char.push({
         id: A,
-        page: _,
+        page: d,
         x: 0,
         y: 0,
-        width: w.width,
-        height: w.height,
+        width: v.width,
+        height: v.height,
         xoffset: 0,
         yoffset: 0,
-        xadvance: w.width
-      }), w;
+        xadvance: v.width
+      }), v;
     });
-    i.common[0] = {
-      lineHeight: o[0].height
-    }, i.info[0] = {
+    s.common[0] = {
+      lineHeight: a[0].height
+    }, s.info[0] = {
       face: t,
-      size: o[0].height
+      size: a[0].height
     };
-    const g = new Z(i, o, !0);
-    Z.available[t] = g;
+    const _ = new st(s, a, !0);
+    st.available[t] = _;
   }
 }
-class Xt {
+class Yt {
   constructor(t) {
     this._assetsManager = t;
   }
-  build(t, e, s) {
-    this._assetsManager.updateOnLoad(e, [{ name: t, asset: s[t].spineData, bundle: e }]);
+  build(t, e, i) {
+    this._assetsManager.updateOnLoad(e, [{ name: t, asset: i[t].spineData, bundle: e }]);
   }
 }
-class k {
+class rt {
   constructor(t) {
     this._assetsManager = t, this._dimension = "", this._behaviours = /* @__PURE__ */ new Map(), this.closestDimension = (e) => {
-      const s = window.screen.height * window.devicePixelRatio, i = window.screen.width * window.devicePixelRatio, r = s > i ? s : i, a = e.map((u) => Math.abs(r - u.width));
-      let c = a[0], o = 0;
-      return a.map((u, _) => {
-        u < c && (c = u, o = _);
-      }), e[o].alias;
+      const i = window.screen.height * window.devicePixelRatio, s = window.screen.width * window.devicePixelRatio, r = i > s ? i : s, o = e.map((u) => Math.abs(r - u.width));
+      let c = o[0], a = 0;
+      return o.map((u, d) => {
+        u < c && (c = u, a = d);
+      }), e[a].alias;
     };
   }
   get dimension() {
     return this._dimension;
   }
   async init(t) {
-    const { bundles: e } = t.manifest, s = await this.checkWebPSupport();
-    this._dimension = this.closestDimension(t.resolutions), t.ignoreFormats && this.ignoreFormats(e, t.ignoreFormats), this.selectResolution(e, this._dimension), this.selectWebp(e, s), this.setupBehaviours(), q.setPreferences({
+    const { bundles: e } = t.manifest, i = await this.checkWebPSupport();
+    this._dimension = this.closestDimension(t.resolutions), t.ignoreFormats && this.ignoreFormats(e, t.ignoreFormats), this.selectResolution(e, this._dimension), this.selectWebp(e, i), this.setupBehaviours(), q.setPreferences({
       preferCreateImageBitmap: !1,
       preferWorkers: !1
     }), await q.init({ manifest: { bundles: e } });
@@ -137,13 +137,13 @@ class k {
     });
   }
   processBundle(t, e) {
-    for (let s in e) {
-      let i;
-      e[s].hasOwnProperty("spineData") ? i = this._behaviours.get("spine") : e[s] instanceof Rt ? i = this._behaviours.get("texture") : e[s] instanceof qt ? i = this._behaviours.get("spritesheet") : t === "fonts" && (i = this._behaviours.get("bitmap")), i && i.build(s, t, e);
+    for (let i in e) {
+      let s;
+      e[i].hasOwnProperty("spineData") ? s = this._behaviours.get("spine") : e[i] instanceof zt ? s = this._behaviours.get("texture") : e[i] instanceof qt ? s = this._behaviours.get("spritesheet") : t === "fonts" && (s = this._behaviours.get("bitmap")), s && s.build(i, t, e);
     }
   }
   setupBehaviours() {
-    this._behaviours.set("spritesheet", new jt(this._assetsManager)), this._behaviours.set("texture", new Vt(this._assetsManager)), this._behaviours.set("bitmap", new Ht(this._assetsManager)), this._behaviours.set("spine", new Xt(this._assetsManager));
+    this._behaviours.set("spritesheet", new Ht(this._assetsManager)), this._behaviours.set("texture", new Vt(this._assetsManager)), this._behaviours.set("bitmap", new Xt(this._assetsManager)), this._behaviours.set("spine", new Yt(this._assetsManager));
   }
   checkWebPSupport() {
     return new Promise((t) => {
@@ -154,48 +154,48 @@ class k {
     });
   }
   selectResolution(t, e) {
-    for (let s of t)
-      for (let i of s.assets)
-        if (Array.isArray(i.srcs)) {
-          const r = i.srcs.filter((a) => a.includes(e));
-          r && r.length && (i.srcs = r);
+    for (let i of t)
+      for (let s of i.assets)
+        if (Array.isArray(s.srcs)) {
+          const r = s.srcs.filter((o) => o.includes(e));
+          r && r.length && (s.srcs = r);
         }
   }
   selectWebp(t, e) {
-    for (let s of t)
-      for (let i of s.assets)
-        if (Array.isArray(i.srcs)) {
-          const r = e ? i.srcs.find((a) => a.includes("_webp")) : i.srcs.find((a) => !a.includes("_webp"));
-          r && (i.srcs = r);
+    for (let i of t)
+      for (let s of i.assets)
+        if (Array.isArray(s.srcs)) {
+          const r = e ? s.srcs.find((o) => o.includes("_webp")) : s.srcs.find((o) => !o.includes("_webp"));
+          r && (s.srcs = r);
         }
   }
   ignoreFormats(t, e) {
-    for (let s of t) {
-      for (let i of s.assets) {
-        if (!Array.isArray(i.srcs)) continue;
-        const r = i.srcs.some(
-          (a) => e.some((c) => a.includes(`.${c}`))
+    for (let i of t) {
+      for (let s of i.assets) {
+        if (!Array.isArray(s.srcs)) continue;
+        const r = s.srcs.some(
+          (o) => e.some((c) => o.includes(`.${c}`))
         );
-        s.assets = s.assets.filter(() => !r);
+        i.assets = i.assets.filter(() => !r);
       }
-      if (s.assets.length == 0) {
-        const i = t.indexOf(s);
-        t.splice(i, 1);
+      if (i.assets.length == 0) {
+        const s = t.indexOf(i);
+        t.splice(s, 1);
       }
     }
   }
 }
-class z {
+class $ {
   constructor() {
     this._emitters = /* @__PURE__ */ new Map();
   }
-  createParticleEmitter(t, e, s) {
-    const i = new Nt.Emitter(e, s);
-    return this._emitters.set(t, i), i;
+  createParticleEmitter(t, e, i) {
+    const s = new jt.Emitter(e, i);
+    return this._emitters.set(t, s), s;
   }
   update(t) {
-    Array.from(this._emitters.values()).forEach((s) => {
-      s.update(t);
+    Array.from(this._emitters.values()).forEach((i) => {
+      i.update(t);
     });
   }
   emit(t) {
@@ -208,18 +208,18 @@ class z {
     });
   }
 }
-const Yt = new ot();
-var P = /* @__PURE__ */ ((n) => (n.Pending = "Pending", n.Loaded = "Loaded", n))(P || {});
-class Jt extends Ot {
+const Jt = new dt();
+var L = /* @__PURE__ */ ((n) => (n.Pending = "Pending", n.Loaded = "Loaded", n))(L || {});
+class Qt extends Pt {
   get active() {
-    return this.getComponent(x).visible;
+    return this.getComponent(b).visible;
   }
   set active(t) {
-    const e = this.getComponent(x);
+    const e = this.getComponent(b);
     e.visible = t;
   }
 }
-class G {
+class U {
   constructor() {
     this._list = /* @__PURE__ */ new Map();
   }
@@ -231,86 +231,86 @@ class G {
   }
   getInChildren(t) {
     const e = [];
-    for (let s = 0; s < t.children.length; s++) {
-      const i = t.children[s], r = this.get(i);
+    for (let i = 0; i < t.children.length; i++) {
+      const s = t.children[i], r = this.get(s);
       r && e.push(r);
-      const a = this.getInChildren(i);
-      e.push(...a);
+      const o = this.getInChildren(s);
+      e.push(...o);
     }
     return e;
   }
   getInChildrenByFilter(t, e) {
-    const s = [];
+    const i = [];
     return this.getInChildren(t).forEach((r) => {
-      r.isSatisfiedFilter(e) && s.push(r);
-    }), s;
+      r.isSatisfiedFilter(e) && i.push(r);
+    }), i;
   }
   getComponent(t, e) {
-    const s = this.get(t);
-    if (!s) throw new Error(`Entity not found for view: ${t.name}`);
-    return s.getComponent(e);
+    const i = this.get(t);
+    if (!i) throw new Error(`Entity not found for view: ${t.name}`);
+    return i.getComponent(e);
   }
 }
-const Qt = new ot();
-class S {
+const Zt = new dt();
+class T {
   setCommonData(t, e) {
     if (e.name = t.name, e.alpha = t.alpha === void 0 ? 1 : t.alpha, e.angle = t.angle || 0, e.rotation = t.rotation || 0, e.zIndex = t.zIndex || 0, e.zOrder = t.zOrder || 0, e.visible = t.visible !== void 0 ? t.visible : !0, e.sortableChildren = !!t.sortableChildren, t.position && (e.position = { x: t.position.x || 0, y: t.position.y || 0 }), t.relativePosition && this.setRelativePosition(t.relativePosition, e), t.scale && (e.scale = { x: t.scale.x || 1, y: t.scale.y || 1 }), t.pivot && (e.pivot = { x: t.pivot.x || 0, y: t.pivot.y || 0 }), t.width && (e.width = t.width), t.height && (e.height = t.height), t.hitArea && (e.hitArea = t.hitArea), t.parentGroup) {
-      const i = l.instance.get(B);
-      e.parentGroup = i.getGroup(t.parentGroup);
+      const s = l.instance.get(B);
+      e.parentGroup = s.getGroup(t.parentGroup);
     }
-    let s = null;
-    if (t.entity && (s = this.setEntity(t.entity, e)), t.mask && this.setMask(t.mask, e), t.interactive && (e.eventMode = t.interactive.eventMode || "static", e.cursor = t.interactive.cursor || "pointer", t.interactive.emit.forEach((i) => e.on(i, () => {
-      Qt.dispatch({
-        type: i,
+    let i = null;
+    if (t.entity && (i = this.setEntity(t.entity, e)), t.mask && this.setMask(t.mask, e), t.interactive && (e.eventMode = t.interactive.eventMode || "static", e.cursor = t.interactive.cursor || "pointer", t.interactive.emit.forEach((s) => e.on(s, () => {
+      Zt.dispatch({
+        type: s,
         view: e,
-        entity: s
+        entity: i
       });
     }))), t.interactiveChildren !== void 0 && (e.interactiveChildren = t.interactiveChildren), t.debugBorder) {
-      const i = t.debugBorderColor || 16711680, r = t.debugBorderWidth || 1;
-      this.setDebugBorder(e, r, i);
+      const s = t.debugBorderColor || 16711680, r = t.debugBorderWidth || 1;
+      this.setDebugBorder(e, r, s);
     }
   }
   setAnchor(t, e) {
-    const i = t || { x: 0.5, y: 0.5 }, r = i.x === void 0 ? 0.5 : i.x, a = i.y === void 0 ? 0.5 : i.y;
-    e.anchor.set(r, a);
+    const s = t || { x: 0.5, y: 0.5 }, r = s.x === void 0 ? 0.5 : s.x, o = s.y === void 0 ? 0.5 : s.y;
+    e.anchor.set(r, o);
   }
   setRelativePosition(t, e) {
-    const s = l.instance.get(U), { width: i, height: r } = s.renderer.screen, a = t.x || 0, c = t.y || 0, o = i / 2 * a, g = r / 2 * c;
-    e.position.set(o, g);
+    const i = l.instance.get(G), { width: s, height: r } = i.renderer.screen, o = t.x || 0, c = t.y || 0, a = s / 2 * o, _ = r / 2 * c;
+    e.position.set(a, _);
   }
   setMask(t, e) {
-    const { x: s, y: i, type: r } = t, a = new K();
-    if (a.beginFill(t.color || 16777215), r === "rect") {
-      let { width: c, height: o } = t;
-      c || (c = s), o || (o = i), a.drawRect(s, i, s + c, i + o), a.pivot.x = c / 2, a.pivot.y = o / 2;
-    } else r === "circle" && (a.drawCircle(s, i, t.radius || 1), a.x = e.width / 2, a.y = e.height / 2);
-    a.endFill(), t.isDebug || (e.mask = a), e.addChild(a);
+    const { x: i, y: s, type: r } = t, o = new nt();
+    if (o.beginFill(t.color || 16777215), r === "rect") {
+      let { width: c, height: a } = t;
+      c || (c = i), a || (a = s), o.drawRect(i, s, i + c, s + a), o.pivot.x = c / 2, o.pivot.y = a / 2;
+    } else r === "circle" && (o.drawCircle(i, s, t.radius || 1), o.x = e.width / 2, o.y = e.height / 2);
+    o.endFill(), t.isDebug || (e.mask = o), e.addChild(o);
   }
   setEntity(t, e) {
-    const s = t.instance ? t.instance(e) : new Jt(Dt.uuid(), `Entity-${e.name}`), i = t.components || [];
-    this.setComponents(s, [e, ...i]);
-    const r = l.instance.get(Wt), a = l.instance.get(G);
-    return r.addEntity(s), a.add(e, s), e.on("destroyed", () => {
-      r.removeEntity(s.uuid);
-    }), s;
+    const i = t.instance ? t.instance(e) : new Qt(Dt.uuid(), `Entity-${e.name}`), s = t.components || [];
+    this.setComponents(i, [e, ...s]);
+    const r = l.instance.get(Wt), o = l.instance.get(U);
+    return r.addEntity(i), o.add(e, i), e.on("destroyed", () => {
+      r.removeEntity(i.uuid);
+    }), i;
   }
   setComponents(t, e) {
-    e.forEach((s) => t.addComponent(s));
+    e.forEach((i) => t.addComponent(i));
   }
-  setDebugBorder(t, e, s) {
-    const i = new K();
-    i.lineStyle(e, s, e).drawRect(-e, -e, t.width + e, t.height + e), i.pivot.x = t.width / 2, i.pivot.y = t.height / 2, t.addChild(i);
+  setDebugBorder(t, e, i) {
+    const s = new nt();
+    s.lineStyle(e, i, e).drawRect(-e, -e, t.width + e, t.height + e), s.pivot.x = t.width / 2, s.pivot.y = t.height / 2, t.addChild(s);
   }
 }
-class Zt extends S {
+class kt extends T {
   create(t) {
-    const e = new x();
+    const e = new b();
     return this.setCommonData(t, e), e;
   }
 }
 class Kt {
   constructor(t) {
-    this._name = t, this.data = [], this.status = P.Pending, this._loaded = new Promise((e) => this._resolve = e);
+    this._name = t, this.data = [], this.status = L.Pending, this._loaded = new Promise((e) => this._resolve = e);
   }
   get name() {
     return this._name;
@@ -323,10 +323,10 @@ class Kt {
   }
   getAssetByName(t) {
     const e = typeof t == "string" ? t : t.name;
-    return this.data.find((s) => s.name === e);
+    return this.data.find((i) => i.name === e);
   }
 }
-class b {
+class M {
   constructor() {
     this.list = /* @__PURE__ */ new Map();
   }
@@ -335,8 +335,8 @@ class b {
     this.list.set(t, e);
   }
   updateOnLoad(t, e) {
-    const s = this.list.get(t);
-    s && (s.data.push(...e), s.status = P.Loaded, s.resolve(s));
+    const i = this.list.get(t);
+    i && (i.data.push(...e), i.status = L.Loaded, i.resolve(i));
   }
   getBundle(t) {
     let e;
@@ -352,29 +352,29 @@ class b {
     return !!(e != null && e.getAssetByName(t));
   }
   findParentBundle(t) {
-    const i = Array.from(this.list.values()).flatMap((r) => r.data).find((r) => r.name === t);
-    if (i)
-      return this.list.get(i.bundle);
+    const s = Array.from(this.list.values()).flatMap((r) => r.data).find((r) => r.name === t);
+    if (s)
+      return this.list.get(s.bundle);
   }
 }
-class kt extends S {
+class te extends T {
   create(t) {
-    const s = l.instance.get(b).getAsset(t.asset);
-    if (!s) throw new Error(`Asset ${t.asset.toString()} not found!`);
-    const i = s.asset, r = new ct();
-    return r.texture = i, r.tint = t.tint ? t.tint : 16777215, this.setCommonData(t, r), this.setAnchor(t.anchor, r), r;
+    const i = l.instance.get(M).getAsset(t.asset);
+    if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
+    const s = i.asset, r = new X();
+    return r.texture = s, r.tint = t.tint ? t.tint : 16777215, this.setCommonData(t, r), this.setAnchor(t.anchor, r), r;
   }
 }
-class te extends S {
+class ee extends T {
   create(t) {
-    const e = new ht(t.text, t.bitmapTextStyle);
+    const e = new Y(t.text, t.bitmapTextStyle);
     return this.setCommonData(t, e), this.setAnchor(t.anchor, e), e.tint = t.tint ? t.tint : 16777215, e;
   }
 }
-class ee extends S {
+class ie extends T {
   create(t) {
-    const e = new zt(t.textStyle || {}), s = new lt(t.text, e);
-    return this.setCommonData(t, s), this.setAnchor(t.anchor, s), s;
+    const e = new $t(t.textStyle || {}), i = new J(t.text, e);
+    return this.setCommonData(t, i), this.setAnchor(t.anchor, i), i;
   }
 }
 class se {
@@ -387,30 +387,30 @@ class se {
   get promises() {
     return this._chain.map(({ deferredPromise: t }) => t);
   }
-  add(t, e, s = { loopCount: 1, timeScale: 1 }) {
-    const i = [];
-    if (s.loopCount === void 0 && (s.loopCount = 1), s.timeScale === void 0 && (s.timeScale = 1), s.loopCount !== -1)
-      for (let r = 0; r < s.loopCount; r++) {
-        const a = new R();
-        i.push({ spine: t, name: e, options: s, deferredPromise: a });
+  add(t, e, i = { loopCount: 1, timeScale: 1 }) {
+    const s = [];
+    if (i.loopCount === void 0 && (i.loopCount = 1), i.timeScale === void 0 && (i.timeScale = 1), i.loopCount !== -1)
+      for (let r = 0; r < i.loopCount; r++) {
+        const o = new z();
+        s.push({ spine: t, name: e, options: i, deferredPromise: o });
       }
     else {
-      const r = new R();
-      i.push({ spine: t, name: e, options: s, deferredPromise: r }), console.warn("[SpineChainsUtil]: loopCount -1 looped your animation forever!");
+      const r = new z();
+      s.push({ spine: t, name: e, options: i, deferredPromise: r }), console.warn("[SpineChainsUtil]: loopCount -1 looped your animation forever!");
     }
-    return this._chain.push(...i), this;
+    return this._chain.push(...s), this;
   }
   async play() {
     for (; this._chain.length > 0; ) {
-      const t = this._curent = this._chain[0], { spine: e, name: s, deferredPromise: i, options: r } = t, { loopCount: a, timeScale: c } = r;
-      a === -1 && this.add(e, s, r), e.state.timeScale = c || 0, this._originalTimeScale = e.state.timeScale, c && (e.state.timeScale = (c + this._timescaleModifier) * this._timeScaleMiltiplier), this._listener && e.state.removeListener(this._listener), this.clear(e), this._listener = this.setListener(r, i), e.state.addListener(this._listener), e.state.setAnimation(0, s, !1), await i.promise, this._chain.shift();
+      const t = this._curent = this._chain[0], { spine: e, name: i, deferredPromise: s, options: r } = t, { loopCount: o, timeScale: c } = r;
+      o === -1 && this.add(e, i, r), e.state.timeScale = c || 0, this._originalTimeScale = e.state.timeScale, c && (e.state.timeScale = (c + this._timescaleModifier) * this._timeScaleMiltiplier), this._listener && e.state.removeListener(this._listener), this.clear(e), this._listener = this.setListener(r, s), e.state.addListener(this._listener), e.state.setAnimation(0, i, !1), await s.promise, this._chain.shift();
     }
     this._spineController.remove(this._name);
   }
   stop(t = !1) {
-    t && this._chain.forEach((s) => this.clear(s.spine));
+    t && this._chain.forEach((i) => this.clear(i.spine));
     const e = this.promises;
-    R.resolveAll(e, void 0), this._chain.length = 0, this._spineController.remove(this._name);
+    z.resolveAll(e, void 0), this._chain.length = 0, this._spineController.remove(this._name);
   }
   multiplyTimeScale(t) {
     this._curent && (t <= 0 && (t = 1), this._timeScaleMiltiplier = t, this._curent.spine.state.timeScale = (this._originalTimeScale + this._timescaleModifier) * t);
@@ -429,23 +429,23 @@ class se {
   }
   setListener(t, e) {
     return {
-      start: (s) => {
-        t.start && t.start(s);
+      start: (i) => {
+        t.start && t.start(i);
       },
-      interrupt: (s) => {
-        t.interrupt && t.interrupt(s);
+      interrupt: (i) => {
+        t.interrupt && t.interrupt(i);
       },
-      end: (s) => {
-        t.end && t.end(s);
+      end: (i) => {
+        t.end && t.end(i);
       },
-      dispose: (s) => {
-        t.dispose && t.dispose(s);
+      dispose: (i) => {
+        t.dispose && t.dispose(i);
       },
-      complete: (s) => {
-        t.complete && t.complete(s), e.resolve(!0);
+      complete: (i) => {
+        t.complete && t.complete(i), e.resolve(!0);
       },
-      event: (s, i) => {
-        t.event && t.event(s, i);
+      event: (i, s) => {
+        t.event && t.event(i, s);
       }
     };
   }
@@ -453,7 +453,7 @@ class se {
     t.state.clearTracks(), t.state.tracks = [], t.skeleton.setToSetupPose(), this._listener && t.state.removeListener(this._listener), t.lastTime = null;
   }
 }
-class N {
+class j {
   constructor() {
     this._chains = /* @__PURE__ */ new Map();
   }
@@ -478,22 +478,22 @@ class N {
     this._spineChains.forEach((e) => e.multiplyTimeScale(t));
   }
   multyplyTimeScale(t, e) {
-    const s = this.get(t);
-    s == null || s.multiplyTimeScale(e);
+    const i = this.get(t);
+    i == null || i.multiplyTimeScale(e);
   }
   increaseTimeScaleAll(t) {
     this._spineChains.forEach((e) => e.increaseTimeScale(t));
   }
   increaseTimeScale(t, e) {
-    const s = this.get(t);
-    s == null || s.increaseTimeScale(e);
+    const i = this.get(t);
+    i == null || i.increaseTimeScale(e);
   }
   decreaseTimeScaleAll(t) {
     this._spineChains.forEach((e) => e.decreaseTimeScale(t));
   }
   decreaseTimeScale(t, e) {
-    const s = this.get(t);
-    s == null || s.decreaseTimeScale(e);
+    const i = this.get(t);
+    i == null || i.decreaseTimeScale(e);
   }
   pauseAll() {
     this._spineChains.forEach((t) => t.pause());
@@ -513,57 +513,57 @@ class N {
     this._spineChains.forEach((e) => e.stop(t));
   }
   stop(t, e = !1) {
-    const s = this.get(t);
-    s == null || s.stop(e);
+    const i = this.get(t);
+    i == null || i.stop(e);
   }
 }
-class tt {
+class ot {
   getDuration(t, e) {
-    const s = t.spineData.findAnimation(e);
-    if (s === null) throw Error(`[SpineChainsUtil]: Animation ${e} not found`);
-    return s.duration;
+    const i = t.spineData.findAnimation(e);
+    if (i === null) throw Error(`[SpineChainsUtil]: Animation ${e} not found`);
+    return i.duration;
   }
   findSlotIndex(t, e) {
     return t.skeleton.findSlotIndex(e);
   }
   findSlotByName(t, e) {
-    const s = this.findSlotIndex(t, e);
-    return t.slotContainers[s].children[0];
+    const i = this.findSlotIndex(t, e);
+    return t.slotContainers[i].children[0];
   }
-  setSlotAlpha(t, e, s) {
-    const i = t.skeleton.findSlot(e);
-    i.currentSprite.alpha = s;
+  setSlotAlpha(t, e, i) {
+    const s = t.skeleton.findSlot(e);
+    s.currentSprite.alpha = i;
   }
-  addToSlot(t, e, s) {
-    this.findSlotByName(t, e).addChild(s);
+  addToSlot(t, e, i) {
+    this.findSlotByName(t, e).addChild(i);
   }
   setSkin(t, e) {
-    const s = t.skeleton.data.findSkin(e);
-    if (!s) throw Error(`[SpineChainsUtil]: Skin ${e} not found`);
-    t.skeleton.skin = s, t.skeleton.setSlotsToSetupPose(), t.state.apply(t.skeleton);
+    const i = t.skeleton.data.findSkin(e);
+    if (!i) throw Error(`[SpineChainsUtil]: Skin ${e} not found`);
+    t.skeleton.skin = i, t.skeleton.setSlotsToSetupPose(), t.state.apply(t.skeleton);
   }
 }
-class ie extends S {
+class ne extends T {
   create(t) {
-    const e = l.instance.get(b), s = l.instance.get(N), i = e.getAsset(t.asset);
-    if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
-    const r = i.asset, a = new dt(r);
-    if (t.initialAnimation && a.state.hasAnimation(t.initialAnimation)) {
+    const e = l.instance.get(M), i = l.instance.get(j), s = e.getAsset(t.asset);
+    if (!s) throw new Error(`Asset ${t.asset.toString()} not found!`);
+    const r = s.asset, o = new Z(r);
+    if (t.initialAnimation && o.state.hasAnimation(t.initialAnimation)) {
       const c = `${t.key || ""}:${t.name}`;
-      s.create(c).add(a, t.initialAnimation, {
+      i.create(c).add(o, t.initialAnimation, {
         timeScale: t.timeScale,
         loopCount: t.loop
-      }).play(), a.autoUpdate = !0;
+      }).play(), o.autoUpdate = !0;
     }
-    return t.skin && a.skeleton.data.findSkin(t.skin) && (a.skeleton.setSkinByName(t.skin), a.skeleton.setSlotsToSetupPose()), this.setCommonData(t, a), a;
+    return t.skin && o.skeleton.data.findSkin(t.skin) && (o.skeleton.setSkinByName(t.skin), o.skeleton.setSlotsToSetupPose()), this.setCommonData(t, o), o;
   }
 }
-class ne extends S {
+class re extends T {
   create(t) {
-    const s = l.instance.get(b).getAsset(t.asset);
-    if (!s) throw new Error(`Asset ${t.asset.toString()} not found!`);
-    const i = s.asset, r = new ut(
-      i,
+    const i = l.instance.get(M).getAsset(t.asset);
+    if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
+    const s = i.asset, r = new Q(
+      s,
       t.leftWidth,
       t.topHeight,
       t.rightWidth,
@@ -572,41 +572,651 @@ class ne extends S {
     return r.tint = t.tint ? t.tint : 16777215, this.setCommonData(t, r), r;
   }
 }
-class j {
+class H {
   constructor(t) {
     this._assetsManager = t, this._behaviours = /* @__PURE__ */ new Map(), this.setupBehaviours();
   }
   create(t, e) {
-    const s = this._behaviours.get(t.type);
-    if (!s) throw new Error(`Unsupported type: ${t.type}`);
+    const i = this._behaviours.get(t.type);
+    if (!i) throw new Error(`Unsupported type: ${t.type}`);
     if (e ? this.loadLazyAsset(t, e) : !1) return;
-    const r = s.create(t);
-    return e == null || e.addChild(r), Yt.dispatch(r), t.children && this.createChildren(t.children, r), r;
+    const r = i.create(t);
+    return e == null || e.addChild(r), Jt.dispatch(r), t.children && this.createChildren(t.children, r), r;
   }
   setupBehaviours() {
-    this._behaviours.set(x, new Zt()), this._behaviours.set(ct, new kt()), this._behaviours.set(ht, new te()), this._behaviours.set(lt, new ee()), this._behaviours.set(dt, new ie()), this._behaviours.set(ut, new ne());
+    this._behaviours.set(b, new kt()), this._behaviours.set(X, new te()), this._behaviours.set(Y, new ee()), this._behaviours.set(J, new ie()), this._behaviours.set(Z, new ne()), this._behaviours.set(Q, new re());
   }
   createChildren(t, e) {
-    for (let s = 0; s < t.length; s++) {
-      const i = t[s];
-      this.create(i, e);
+    for (let i = 0; i < t.length; i++) {
+      const s = t[i];
+      this.create(s, e);
     }
   }
   loadLazyAsset(t, e) {
-    let s = !1;
+    let i = !1;
     if ("asset" in t) {
-      const i = this._assetsManager.getBundle(t.asset);
-      if (!i) throw new Error("No such asset" + t.asset.toString());
-      i.status === P.Pending && (i.loaded.then(() => {
+      const s = this._assetsManager.getBundle(t.asset);
+      if (!s) throw new Error("No such asset" + t.asset.toString());
+      s.status === L.Pending && (s.loaded.then(() => {
         this.create(t, e);
-      }), s = !0);
+      }), i = !0);
     }
-    return s;
+    return i;
   }
 }
-class re {
-  constructor(t, e, s) {
-    this._factory = t, this._size = e, this._dynamic = s, this._pool = [], this.intitialize();
+class x {
+  constructor(t) {
+    t && (this._config = t);
+  }
+  // ============================= //
+  //         CONTAINER             //
+  // ============================= //
+  /**
+   * @description
+   * Создает корневую ноду указанного типа.
+   * 
+   * @param type - тип Pixi-объекта.
+   * @param name - имя ноды.
+   */
+  node(t, e = "node") {
+    return this._config ? this._config.type = t : this._config = {
+      type: t,
+      name: e
+    }, this;
+  }
+  /**
+   * @description
+   * Создает корневую ноду из View.
+   * 
+   * @param view - View, из которого создается конфигурация.
+   */
+  view(t) {
+    return this._config = t.create(), this;
+  }
+  /**
+   * @description
+   * Создает корневую ноду из конфигурации.
+   * 
+   * @param config - конфигурация ноды.
+   */
+  config(t) {
+    return this._config = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает имя ноды.
+   * 
+   * @param name - имя ноды.
+   */
+  name(t) {
+    return this.checkConfig(), this._config.name = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает позицию ноды.
+   * 
+   * @param x - x-координата.
+   * @param y - y-координата.
+   */
+  position(t, e) {
+    return this.checkConfig(), this._config.position = { x: t, y: e }, this;
+  }
+  /**
+   * @description
+   * Устанавливает x-координату ноды.
+   * 
+   * @param x - x-координата.
+   */
+  x(t) {
+    return this.checkConfig(), this._config.position = { x: t }, this;
+  }
+  /**
+   * @description
+   * Устанавливает y-координату ноды.
+   * 
+   * @param y - y-координата.
+   */
+  y(t) {
+    return this.checkConfig(), this._config.position = { y: t }, this;
+  }
+  /**
+   * @description
+   * Устанавливает скейл ноды.
+   * 
+   * @param x - x-координата.
+   * @param y - y-координата.
+   */
+  scale(t, e) {
+    return this.checkConfig(), this._config.scale = { x: t, y: e }, this;
+  }
+  /**
+   * @description
+   * Устанавливает скейл ноды по x.
+   * 
+   * @param x - x-координата.
+   */
+  scaleX(t) {
+    return this.checkConfig(), this._config.scale = { x: t }, this;
+  }
+  /**
+   * @description
+   * Устанавливает скейл ноды по y.
+   * 
+   * @param y - y-координата.
+   */
+  scaleY(t) {
+    return this.checkConfig(), this._config.scale = { y: t }, this;
+  }
+  /**
+   * @description
+   * Устанавливает ширину ноды.
+   * 
+   * @param width - ширина ноды.
+   */
+  width(t) {
+    return this.checkConfig(), this._config.width = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает высоту ноды.
+   * 
+   * @param height - высота ноды.
+   */
+  height(t) {
+    return this.checkConfig(), this._config.height = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает ширину и высоту ноды.
+   * 
+   * @param width - ширина ноды.
+   * @param height - высота ноды.
+   */
+  size(t, e) {
+    return this.checkConfig(), this._config.width = t, this._config.height = e, this;
+  }
+  /**
+   * @description
+   * Устанавливает центр ноды.
+   * 
+   * @param x - x-координата.
+   * @param y - y-координата.
+   */
+  pivot(t, e) {
+    return this.checkConfig(), this._config.pivot = { x: t, y: e }, this;
+  }
+  /**
+   * @description
+   * Устанавливает видимость ноды.
+   * 
+   * @param visible - видимость ноды.
+   */
+  visible(t) {
+    return this.checkConfig(), this._config.visible = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает прозрачность ноды.
+   * 
+   * @param alpha - прозрачность ноды.
+   */
+  alpha(t) {
+    return this.checkConfig(), this._config.alpha = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает поворот ноды через свойство rotation.
+   * 
+   * @param rotation - угол ноды.
+   */
+  rotation(t) {
+    return this.checkConfig(), this._config.rotation = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает поворот ноды через свойство angle.
+   * 
+   * @param angle - угол ноды.
+   */
+  angle(t) {
+    return this.checkConfig(), this._config.angle = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает родительскую группу ноды для сортировки по слоям.
+   * 
+   * @param group - группа ноды.
+   */
+  parentGroup(t) {
+    return this.checkConfig(), this._config.parentGroup = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает порядок ноды для сортировки по слоям.
+   * 
+   * @param order - порядок ноды.
+   */
+  order(t) {
+    return this.checkConfig(), this._config.zOrder = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает индекс ноды для сортировки в рамках родителя.
+   * 
+   * @param zIndex - индекс ноды.
+   */
+  zIndex(t) {
+    return this.checkConfig(), this._config.zIndex = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает возможность сортировки дочерних нод.
+   * 
+   * @param sortable - возможность сортировки дочерних нод.
+   */
+  sortable(t) {
+    return this.checkConfig(), this._config.sortableChildren = t, this;
+  }
+  /**
+   * @description
+   * Определяет будут ли дочерние ноды интерактивными.
+   * 
+   * @param interactive - интерактивность дочерних нод.
+   */
+  interactiveChildren(t) {
+    return this.checkConfig(), this._config.interactiveChildren = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает режим обработки событий.
+   * 
+   * @param eventMode - режим обработки событий.
+   */
+  eventMode(t) {
+    return this.checkConfig(), this._config.interactive ? this._config.interactive.eventMode = t : this._config.interactive = { eventMode: t, emit: [] }, this;
+  }
+  /**
+   * @description
+   * Устанавливает типы событий, которые будут обрабатываться.
+   * 
+   * @param eventType - типы событий.
+   */
+  eventType(t) {
+    return this.checkConfig(), this._config.interactive ? this._config.interactive.emit.push(t) : this._config.interactive = { eventMode: "none", emit: [t] }, this;
+  }
+  /**
+   * @description
+   * Устанавливает курсор при наведении на ноду.
+   * 
+   * @param cursor - тип курсора.
+   */
+  cursor(t) {
+    return this.checkConfig(), this._config.interactive ? this._config.interactive.cursor = t : this._config.interactive = { cursor: t, emit: [], eventMode: "none" }, this;
+  }
+  /**
+   * @description
+   * Устанавливает опции интерактивности.
+   * 
+   * @param interactive - опции интерактивности.
+   */
+  interactive(t) {
+    return this.checkConfig(), this._config.interactive = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает область, в которой будет обрабатываться событие.
+   * 
+   * @param hitArea - опции области, в которой будет обрабатываться событие.
+   */
+  hitArea(t) {
+    return this.checkConfig(), this._config.hitArea = t, this;
+  }
+  /**
+   * @description
+   * Устанавливает маску для ноды.
+   * 
+   * @param mask - опции маски для ноды.
+   */
+  mask(t) {
+    return this.checkConfig(), this._config.mask = t, this;
+  }
+  /**
+   * @description
+   * Добавляет дочернюю ноду.
+   * 
+   * @param callback - функция, которая настраивает дочернюю ноду.
+   */
+  addChild(t) {
+    var i;
+    this.checkConfig(), this.checkChildren();
+    const e = new x();
+    return t(e), (i = this._config.children) == null || i.push(e.create()), this;
+  }
+  /**
+   * @description
+   * Находит дочернюю ноду по имени для переопределения её конфигурации.
+   * Поиск происходит по первому уровню вложенности.
+   * 
+   * @param name - имя дочерней ноды.
+   * @param callback - функция, которая настраивает дочернюю ноду.
+   */
+  getChild(t, e) {
+    var r;
+    this.checkConfig(), this.checkChildren();
+    const i = (r = this._config.children) == null ? void 0 : r.find((o) => o.name === t);
+    if (!i)
+      throw new Error(`Child with name ${t} not found`);
+    const s = new x(i);
+    return e(s), this;
+  }
+  /**
+   * @description
+   * Находит дочернюю ноду по имени для переопределения её конфигурации.
+   * Поиск происходит по всему дереву вложенности.
+   * 
+   * @param name - имя дочерней ноды.
+   * @param callback - функция, которая настраивает дочернюю ноду.
+   */
+  getDeepChild(t, e) {
+    this.checkConfig(), this.checkChildren();
+    const i = this.deepSearchChild(t);
+    if (!i)
+      throw new Error(`Child with name ${t} not found`);
+    const s = new x(i);
+    return e(s), this;
+  }
+  /**
+   * @description
+   * Удаляет дочернюю ноду по имени из первого уровня вложенности.
+   * 
+   * @param name - имя дочерней ноды.
+   */
+  removeChild(t) {
+    var e;
+    return this.checkConfig(), this.checkChildren(), this._config.children = (e = this._config.children) == null ? void 0 : e.filter((i) => i.name !== t), this;
+  }
+  /**
+   * @description
+   * Удаляет дочернюю ноду по имени из любого уровня вложенности.
+   * 
+   * @param name - имя дочерней ноды.
+   */
+  removeDeepChild(t) {
+    if (this.checkConfig(), this.checkChildren(), !this.deepRemoveChild(t, this._config.children || []))
+      throw new Error(`Child with name ${t} not found`);
+    return this;
+  }
+  // ============================= //
+  //            SPRITE             //
+  // ============================= //
+  /**
+   * @description
+   * Устанавливает якорь для ноды.
+   * 
+   * @param x - x-координата якоря.
+   * @param y - y-координата якоря.
+   */
+  anchor(t, e) {
+    if (this.checkConfig(), this.isSprite(this._config) || this.isText(this._config))
+      this._config.anchor = { x: t, y: e };
+    else
+      throw new Error("Anchor can only be set on Sprite or Text nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает текстуру для ноды.
+   * 
+   * @param texture - текстура.
+   */
+  texture(t) {
+    if (this.checkConfig(), this.isSprite(this._config) || this.isNineSlicePlane(this._config))
+      this._config.asset = t;
+    else
+      throw new Error("Texture can only be set on Sprite or NineSlicePlane nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает цвет для ноды.
+   * 
+   * @param tint - цвет.
+   */
+  tint(t) {
+    if (this.checkConfig(), this.isSprite(this._config) || this.isBitmapText(this._config) || this.isNineSlicePlane(this._config))
+      this._config.tint = t;
+    else
+      throw new Error("Tint can only be set on Sprite, BitmapText or NineSlicePlane nodes");
+    return this;
+  }
+  // ============================= //
+  //            TEXT               //
+  // ============================= //
+  /**
+   * @description
+   * Устанавливает текст для ноды.
+   * 
+   * @param text - текст.
+   */
+  text(t) {
+    if (this.checkConfig(), this.isText(this._config))
+      this._config.text = t;
+    else
+      throw new Error("Text can only be set on Text nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает стиль текста для ноды.
+   * 
+   * @param style - стиль текста.
+   */
+  textStyle(t) {
+    if (this.checkConfig(), this.isText(this._config))
+      this._config.textStyle = t;
+    else
+      throw new Error("Text style can only be set on Text nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает стиль текста для ноды.
+   * 
+   * @param style - стиль текста.
+   */
+  bitmapTextStyle(t) {
+    if (this.checkConfig(), this.isBitmapText(this._config))
+      this._config.bitmapTextStyle = t;
+    else
+      throw new Error("Bitmap text style can only be set on BitmapText nodes");
+    return this;
+  }
+  // ============================= //
+  //            SPINE              //
+  // ============================= //
+  /**
+   * @description
+   * Устанавливает ассет для ноды.
+   * 
+   * @param asset - ассет.
+   */
+  spine(t) {
+    if (this.checkConfig(), this.isSpine(this._config))
+      this._config.asset = t;
+    else
+      throw new Error("Spine can only be set on Spine nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает начальную анимацию для ноды.
+   * 
+   * @param animation - начальная анимация.
+   */
+  initialAnimation(t) {
+    if (this.checkConfig(), this.isSpine(this._config))
+      this._config.initialAnimation = t;
+    else
+      throw new Error("Initial animation can only be set on Spine nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает скин для ноды.
+   * 
+   * @param skin - скин.
+   */
+  skin(t) {
+    if (this.checkConfig(), this.isSpine(this._config))
+      this._config.skin = t;
+    else
+      throw new Error("Skin can only be set on Spine nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает количество повторений для ноды.
+   * 
+   * @param loop - количество повторений.
+   */
+  loop(t) {
+    if (this.checkConfig(), this.isSpine(this._config))
+      this._config.loop = t;
+    else
+      throw new Error("Loop can only be set on Spine nodes");
+    return this;
+  }
+  /**
+   * @description
+   * Устанавливает скорость воспроизведения для ноды.
+   * 
+   * @param timeScale - скорость воспроизведения.
+   */
+  timeScale(t) {
+    if (this.checkConfig(), this.isSpine(this._config))
+      this._config.timeScale = t;
+    else
+      throw new Error("Time scale can only be set on Spine nodes");
+    return this;
+  }
+  // ============================= //
+  //            NINE SLICE         //
+  // ============================= //
+  /**
+   * @description
+   * Устанавливает параметры nine-slice для ноды.
+   * 
+   * @param leftWidth - левая граница.
+   * @param rightWidth - правая граница.
+   * @param topHeight - верхняя граница.
+   * @param bottomHeight - нижняя граница.
+   */
+  nineSlice(t, e, i, s) {
+    if (this.checkConfig(), this.isNineSlicePlane(this._config))
+      this._config.leftWidth = t, this._config.rightWidth = e, this._config.topHeight = i, this._config.bottomHeight = s;
+    else
+      throw new Error("Nine slice can only be set on NineSlicePlane nodes");
+    return this;
+  }
+  // ============================= //
+  //             ENTITY            //
+  // ============================= //
+  /**
+   * @description
+   * Добавляет компонент к ноде создавая Entity.
+   * 
+   * @param component - компонент.
+   */
+  addComponent(t) {
+    return this.checkConfig(), this._config.entity || (this._config.entity = {
+      components: []
+    }), this._config.entity.components || (this._config.entity.components = []), this._config.entity.components.push(t), this;
+  }
+  /**
+   * @description
+   * Удаляет компонент из ноды.
+   * 
+   * @param type - тип компонента.
+   */
+  removeComponent(t) {
+    return this.checkConfig(), this._config.entity || (this._config.entity = {
+      components: []
+    }), this._config.entity.components || (this._config.entity.components = []), this._config.entity.components.findIndex((i) => i instanceof t) && (this._config.entity.components = this._config.entity.components.filter((i) => i.constructor !== t)), this;
+  }
+  /**
+   * @description
+   * Создает конфигурацию ноды.
+   * 
+   * @returns конфигурация ноды.
+   */
+  create() {
+    return this._config;
+  }
+  checkConfig() {
+    if (!this._config)
+      throw new Error("Config is not initialized");
+  }
+  checkChildren() {
+    this._config.children || (this._config.children = []);
+  }
+  deepSearchChild(t) {
+    const e = [...this._config.children || []];
+    let i;
+    for (; e.length > 0; ) {
+      const s = e.shift();
+      if (s) {
+        if (s.name === t) {
+          i = s, e.length = 0;
+          break;
+        }
+        s.children && e.push(...s.children);
+      }
+    }
+    return i;
+  }
+  deepRemoveChild(t, e) {
+    for (let i = 0; i < e.length; i++) {
+      const s = e[i];
+      if (s.name === t)
+        return e.splice(i, 1), !0;
+      if (s.children)
+        return this.deepRemoveChild(t, s.children);
+    }
+    return !1;
+  }
+  isSprite(t) {
+    return t.type === X;
+  }
+  isText(t) {
+    return t.type === J;
+  }
+  isBitmapText(t) {
+    return t.type === Y;
+  }
+  isSpine(t) {
+    return t.type === Z;
+  }
+  isNineSlicePlane(t) {
+    return t.type === Q;
+  }
+}
+class qe {
+  constructor(t) {
+    this._builder = new x(t);
+  }
+  /**
+   * @description
+   * Создает конфигурацию ноды.
+   * 
+   * @returns конфигурация ноды.
+   */
+  create() {
+    return this.setup(this._builder), this._builder.create();
+  }
+}
+class oe {
+  constructor(t, e, i) {
+    this._factory = t, this._size = e, this._dynamic = i, this._pool = [], this.intitialize();
   }
   get size() {
     return this._size;
@@ -630,18 +1240,18 @@ class re {
     this._factory.reset(t), this._pool.push(t);
   }
 }
-class qe {
+class $e {
   createFromConfig(t) {
-    return this.config = t, l.instance.get(j).create(t);
+    return this.config = t, l.instance.get(H).create(t);
   }
 }
-class et {
+class at {
   constructor() {
     this._pools = /* @__PURE__ */ new Map();
   }
-  create(t, e, s, i) {
-    const r = new e(), a = new re(r, s, i);
-    return this._pools.set(t, a), a;
+  create(t, e, i, s) {
+    const r = new e(), o = new oe(r, i, s);
+    return this._pools.set(t, o), o;
   }
   get(t) {
     let e = this._pools.get(t);
@@ -690,7 +1300,7 @@ class m {
   release() {
   }
 }
-class L extends m {
+class F extends m {
   constructor() {
     super(...arguments), this._duration = 0, this._timesForRepeat = 1;
   }
@@ -701,10 +1311,10 @@ class L extends m {
     this._duration = t;
   }
   clone() {
-    return new L();
+    return new F();
   }
 }
-class I extends L {
+class E extends F {
   isDone() {
     return !0;
   }
@@ -717,11 +1327,11 @@ class I extends L {
     return this.clone();
   }
   clone() {
-    return new I();
+    return new E();
   }
 }
 const ae = 1192092896e-16;
-class h extends L {
+class h extends F {
   constructor(t) {
     super(), this.MAX_VALUE = 2, this._elapsed = 0, this._firstTick = !1, this._easeList = [], this._speed = 1, this._repeatForever = !1, this._repeatMethod = !1, this._speedMethod = !1, t !== void 0 && !Number.isNaN(t) && this.initWithDuration(t);
   }
@@ -788,12 +1398,12 @@ class h extends L {
     return t;
   }
 }
-class H extends I {
-  constructor(t, e, s) {
-    super(), this._selectorTarget = null, this._function = null, this._data = null, this.initWithFunction(t, e, s);
+class k extends E {
+  constructor(t, e, i) {
+    super(), this._selectorTarget = null, this._function = null, this._data = null, this.initWithFunction(t, e, i);
   }
-  initWithFunction(t, e, s) {
-    return t && (this._function = t), e && (this._selectorTarget = e), s !== void 0 && (this._data = s), !0;
+  initWithFunction(t, e, i) {
+    return t && (this._function = t), e && (this._selectorTarget = e), i !== void 0 && (this._data = i), !0;
   }
   execute() {
     this._function && this._function.call(this._selectorTarget, this.target, this._data);
@@ -808,34 +1418,34 @@ class H extends I {
     t !== this._selectorTarget && (this._selectorTarget && (this._selectorTarget = null), this._selectorTarget = t);
   }
   clone() {
-    const t = new H();
+    const t = new k();
     return t.initWithFunction(this._function, this._selectorTarget, this._data), t;
   }
 }
-const y = class y extends h {
+const w = class w extends h {
   constructor(t) {
     super(), this._actions = [], this._split = 0, this._last = 0, this._reversed = !1;
     const e = t instanceof Array ? t : arguments;
     if (e.length === 1)
       return;
-    const s = e.length - 1;
-    if (s >= 0) {
-      let i = e[0], r;
-      for (let a = 1; a < s; a++)
-        e[a] && (r = i, i = y._actionOneTwo(r, e[a]));
-      this.initWithTwoActions(i, e[s]);
+    const i = e.length - 1;
+    if (i >= 0) {
+      let s = e[0], r;
+      for (let o = 1; o < i; o++)
+        e[o] && (r = s, s = w._actionOneTwo(r, e[o]));
+      this.initWithTwoActions(s, e[i]);
     }
   }
   initWithTwoActions(t, e) {
     if (!t || !e)
       return !1;
-    let s = t._duration, i = e._duration;
-    s *= t._repeatMethod ? t._timesForRepeat : 1, i *= e._repeatMethod ? e._timesForRepeat : 1;
-    const r = s + i;
+    let i = t._duration, s = e._duration;
+    i *= t._repeatMethod ? t._timesForRepeat : 1, s *= e._repeatMethod ? e._timesForRepeat : 1;
+    const r = i + s;
     return this.initWithDuration(r), this._actions[0] = t, this._actions[1] = e, !0;
   }
   clone() {
-    const t = new y();
+    const t = new w();
     return this.cloneDecoration(t), t.initWithTwoActions(this._actions[0].clone(), this._actions[1].clone()), t;
   }
   startWithTarget(t) {
@@ -845,44 +1455,44 @@ const y = class y extends h {
     this._last !== -1 && this._actions[this._last].stop(), m.prototype.stop.call(this);
   }
   update(t) {
-    let e, s = 0;
-    const i = this._split, r = this._actions, a = this._last;
+    let e, i = 0;
+    const s = this._split, r = this._actions, o = this._last;
     let c;
-    t = this.computeEaseTime(t), t < i ? (e = i !== 0 ? t / i : 1, s === 0 && a === 1 && this._reversed && (r[1].update(0), r[1].stop())) : (s = 1, e = i === 1 ? 1 : (t - i) / (1 - i), a === -1 && (r[0].startWithTarget(this.target), r[0].update(1), r[0].stop()), a === 0 && (r[0].update(1), r[0].stop())), c = r[s], !(a === s && c.isDone()) && (a !== s && c.startWithTarget(this.target), e *= c._timesForRepeat, c.update(e > 1 ? e % 1 : e), this._last = s);
+    t = this.computeEaseTime(t), t < s ? (e = s !== 0 ? t / s : 1, i === 0 && o === 1 && this._reversed && (r[1].update(0), r[1].stop())) : (i = 1, e = s === 1 ? 1 : (t - s) / (1 - s), o === -1 && (r[0].startWithTarget(this.target), r[0].update(1), r[0].stop()), o === 0 && (r[0].update(1), r[0].stop())), c = r[i], !(o === i && c.isDone()) && (o !== i && c.startWithTarget(this.target), e *= c._timesForRepeat, c.update(e > 1 ? e % 1 : e), this._last = i);
   }
   reverse() {
-    const t = y._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
+    const t = w._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t._reversed = !0, t;
   }
 };
-y._actionOneTwo = function(t, e) {
-  const s = new y();
-  return s.initWithTwoActions(t, e), s;
+w._actionOneTwo = function(t, e) {
+  const i = new w();
+  return i.initWithTwoActions(t, e), i;
 };
-let C = y;
-function $(n) {
+let I = w;
+function N(n) {
   const t = n instanceof Array ? n : arguments;
   if (t.length === 1)
     return t[0];
   const e = t.length - 1;
-  let s = null;
+  let i = null;
   if (e >= 0) {
-    s = t[0];
-    for (let i = 1; i <= e; i++)
-      t[i] && (s = C._actionOneTwo(s, t[i]));
+    i = t[0];
+    for (let s = 1; s <= e; s++)
+      t[s] && (i = I._actionOneTwo(i, t[s]));
   }
-  return s;
+  return i;
 }
-class E extends h {
+class O extends h {
   constructor(t, e) {
     super(), this._times = 0, this._total = 0, this._nextDt = 0, this._actionInstant = !1, this._innerAction = null, e !== void 0 && this.initWithAction(t, e);
   }
   initWithAction(t, e) {
-    const s = t._duration * e;
-    return this.initWithDuration(s) ? (this._times = e, this._innerAction = t, t instanceof I && (this._actionInstant = !0, this._times -= 1), this._total = 0, !0) : !1;
+    const i = t._duration * e;
+    return this.initWithDuration(i) ? (this._times = e, this._innerAction = t, t instanceof E && (this._actionInstant = !0, this._times -= 1), this._total = 0, !0) : !1;
   }
   clone() {
-    const t = new E();
+    const t = new O();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone(), this._times), t;
   }
   startWithTarget(t) {
@@ -893,20 +1503,20 @@ class E extends h {
   }
   update(t) {
     t = this.computeEaseTime(t);
-    const e = this._innerAction, s = this._duration, i = this._times;
+    const e = this._innerAction, i = this._duration, s = this._times;
     let r = this._nextDt;
     if (t >= r) {
-      for (; t > r && this._total < i; )
-        e.update(1), this._total++, e.stop(), e.startWithTarget(this.target), r += e._duration / s, this._nextDt = r > 1 ? 1 : r;
-      t >= 1 && this._total < i && (e.update(1), this._total++), this._actionInstant || (this._total === i ? e.stop() : e.update(t - (r - e._duration / s)));
+      for (; t > r && this._total < s; )
+        e.update(1), this._total++, e.stop(), e.startWithTarget(this.target), r += e._duration / i, this._nextDt = r > 1 ? 1 : r;
+      t >= 1 && this._total < s && (e.update(1), this._total++), this._actionInstant || (this._total === s ? e.stop() : e.update(t - (r - e._duration / i)));
     } else
-      e.update(t * i % 1);
+      e.update(t * s % 1);
   }
   isDone() {
     return this._total === this._times;
   }
   reverse() {
-    const t = new E(this._innerAction.reverse(), this._times);
+    const t = new O(this._innerAction.reverse(), this._times);
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -916,7 +1526,7 @@ class E extends h {
     return this._innerAction;
   }
 }
-class O extends h {
+class P extends h {
   constructor(t) {
     super(), this._innerAction = null, t && this.initWithAction(t);
   }
@@ -924,7 +1534,7 @@ class O extends h {
     return t ? (this._innerAction = t, !0) : !1;
   }
   clone() {
-    const t = new O();
+    const t = new P();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone()), t;
   }
   startWithTarget(t) {
@@ -938,7 +1548,7 @@ class O extends h {
     return !1;
   }
   reverse() {
-    const t = new O(this._innerAction.reverse());
+    const t = new P(this._innerAction.reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -948,41 +1558,41 @@ class O extends h {
     return this._innerAction;
   }
 }
-class T extends h {
+class C extends h {
   update(t) {
   }
   reverse() {
-    const t = new T(this._duration);
+    const t = new C(this._duration);
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   clone() {
-    const t = new T();
+    const t = new C();
     return this.cloneDecoration(t), t.initWithDuration(this._duration), t;
   }
 }
-const v = class v extends h {
+const y = class y extends h {
   constructor(t) {
     super(), this._one = null, this._two = null;
     const e = t instanceof Array ? t : arguments;
     if (e.length === 1)
       return;
-    const s = e.length - 1;
-    if (s >= 0) {
-      let i = e[0], r;
-      for (let a = 1; a < s; a++)
-        e[a] && (r = i, i = v._actionOneTwo(r, e[a]));
-      this.initWithTwoActions(i, e[s]);
+    const i = e.length - 1;
+    if (i >= 0) {
+      let s = e[0], r;
+      for (let o = 1; o < i; o++)
+        e[o] && (r = s, s = y._actionOneTwo(r, e[o]));
+      this.initWithTwoActions(s, e[i]);
     }
   }
   initWithTwoActions(t, e) {
     if (!t || !e)
       return !1;
-    let s = !1;
-    const i = t._duration, r = e._duration;
-    return this.initWithDuration(Math.max(i, r)) && (this._one = t, this._two = e, i > r ? this._two = C._actionOneTwo(e, new T(i - r)) : i < r && (this._one = C._actionOneTwo(t, new T(r - i))), s = !0), s;
+    let i = !1;
+    const s = t._duration, r = e._duration;
+    return this.initWithDuration(Math.max(s, r)) && (this._one = t, this._two = e, s > r ? this._two = I._actionOneTwo(e, new C(s - r)) : s < r && (this._one = I._actionOneTwo(t, new C(r - s))), i = !0), i;
   }
   clone() {
-    const t = new v();
+    const t = new y();
     return this.cloneDecoration(t), t.initWithTwoActions(this._one.clone(), this._two.clone()), t;
   }
   startWithTarget(t) {
@@ -995,25 +1605,25 @@ const v = class v extends h {
     t = this.computeEaseTime(t), this._one && this._one.update(t), this._two && this._two.update(t);
   }
   reverse() {
-    const t = v._actionOneTwo(this._one.reverse(), this._two.reverse());
+    const t = y._actionOneTwo(this._one.reverse(), this._two.reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
 };
-v._actionOneTwo = function(t, e) {
-  const s = new v();
-  return s.initWithTwoActions(t, e), s;
+y._actionOneTwo = function(t, e) {
+  const i = new y();
+  return i.initWithTwoActions(t, e), i;
 };
-let V = v;
-function st(n) {
+let V = y;
+function ct(n) {
   const t = n instanceof Array ? n : arguments;
   if (t.length === 1)
     return null;
   let e = t[0];
-  for (let s = 1; s < t.length; s++)
-    t[s] != null && (e = V._actionOneTwo(e, t[s]));
+  for (let i = 1; i < t.length; i++)
+    t[i] != null && (e = V._actionOneTwo(e, t[i]));
   return e;
 }
-class X extends h {
+class K extends h {
   constructor(t) {
     super(), this._other = null, t && this.initWithAction(t);
   }
@@ -1021,7 +1631,7 @@ class X extends h {
     return !t || t === this._other ? !1 : h.prototype.initWithDuration.call(this, t._duration) ? (this._other = t, !0) : !1;
   }
   clone() {
-    const t = new X();
+    const t = new K();
     return this.cloneDecoration(t), t.initWithAction(this._other.clone()), t;
   }
   startWithTarget(t) {
@@ -1037,26 +1647,26 @@ class X extends h {
     this._other.stop(), m.prototype.stop.call(this);
   }
 }
-class oe {
+class ce {
   constructor() {
     this.actions = [], this.target = null, this.actionIndex = 0, this.currentAction = null, this.paused = !1, this.lock = !1;
   }
 }
-class ce {
+class he {
   constructor() {
     this._hashTargets = /* @__PURE__ */ new Map(), this._arrayTargets = [], this._elementPool = [];
   }
-  addAction(t, e, s) {
+  addAction(t, e, i) {
     if (!t || !e)
       return;
-    let i = this._hashTargets.get(e);
-    i ? i.actions || (i.actions = []) : (i = this._getElement(e, s), this._hashTargets.set(e, i), this._arrayTargets.push(i)), i.target = e, i.actions.push(t), t.startWithTarget(e);
+    let s = this._hashTargets.get(e);
+    s ? s.actions || (s.actions = []) : (s = this._getElement(e, i), this._hashTargets.set(e, s), this._arrayTargets.push(s)), s.target = e, s.actions.push(t), t.startWithTarget(e);
   }
   removeAllActions() {
     const t = this._arrayTargets;
     for (let e = 0; e < t.length; e++) {
-      const s = t[e];
-      s && this._putElement(s);
+      const i = t[e];
+      i && this._putElement(i);
     }
     this._arrayTargets.length = 0, this._hashTargets = /* @__PURE__ */ new Map();
   }
@@ -1067,61 +1677,61 @@ class ce {
   }
   removeAction(t) {
     if (t == null) return;
-    const e = t.getOriginalTarget(), s = this._hashTargets.get(e);
-    if (s) {
-      for (let i = 0; i < s.actions.length; i++)
-        if (s.actions[i] === t) {
-          s.actions.splice(i, 1), s.actionIndex >= i && s.actionIndex--;
+    const e = t.getOriginalTarget(), i = this._hashTargets.get(e);
+    if (i) {
+      for (let s = 0; s < i.actions.length; s++)
+        if (i.actions[s] === t) {
+          i.actions.splice(s, 1), i.actionIndex >= s && i.actionIndex--;
           break;
         }
     }
   }
-  _removeActionByTag(t, e, s) {
-    for (let i = 0, r = e.actions.length; i < r; ++i) {
-      const a = e.actions[i];
-      if (a && a.tag === t) {
-        if (s && a.getOriginalTarget() !== s)
+  _removeActionByTag(t, e, i) {
+    for (let s = 0, r = e.actions.length; s < r; ++s) {
+      const o = e.actions[s];
+      if (o && o.tag === t) {
+        if (i && o.getOriginalTarget() !== i)
           continue;
-        this._removeActionAtIndex(i, e);
+        this._removeActionAtIndex(s, e);
         break;
       }
     }
   }
-  _removeAllActionsByTag(t, e, s) {
-    for (let i = e.actions.length - 1; i >= 0; --i) {
-      const r = e.actions[i];
+  _removeAllActionsByTag(t, e, i) {
+    for (let s = e.actions.length - 1; s >= 0; --s) {
+      const r = e.actions[s];
       if (r && r.tag === t) {
-        if (s && r.getOriginalTarget() !== s)
+        if (i && r.getOriginalTarget() !== i)
           continue;
-        this._removeActionAtIndex(i, e);
+        this._removeActionAtIndex(s, e);
       }
     }
   }
   removeActionByTag(t, e) {
-    const s = this._hashTargets;
+    const i = this._hashTargets;
     if (e) {
-      const i = s.get(e);
-      i && this._removeActionByTag(t, i, e);
+      const s = i.get(e);
+      s && this._removeActionByTag(t, s, e);
     } else
-      s.forEach((i) => {
-        this._removeActionByTag(t, i);
+      i.forEach((s) => {
+        this._removeActionByTag(t, s);
       });
   }
   removeAllActionsByTag(t, e) {
-    const s = this._hashTargets;
+    const i = this._hashTargets;
     if (e) {
-      const i = s.get(e);
-      i && this._removeAllActionsByTag(t, i, e);
+      const s = i.get(e);
+      s && this._removeAllActionsByTag(t, s, e);
     } else
-      s.forEach((i) => {
-        this._removeAllActionsByTag(t, i);
+      i.forEach((s) => {
+        this._removeAllActionsByTag(t, s);
       });
   }
   getActionByTag(t, e) {
-    const s = this._hashTargets.get(e);
-    if (s && s.actions != null)
-      for (let i = 0; i < s.actions.length; ++i) {
-        const r = s.actions[i];
+    const i = this._hashTargets.get(e);
+    if (i && i.actions != null)
+      for (let s = 0; s < i.actions.length; ++s) {
+        const r = i.actions[s];
         if (r && r.tag === t)
           return r;
       }
@@ -1141,9 +1751,9 @@ class ce {
   }
   pauseAllRunningActions() {
     const t = [], e = this._arrayTargets;
-    for (let s = 0; s < e.length; s++) {
-      const i = e[s];
-      i && !i.paused && (i.paused = !0, t.push(i.target));
+    for (let i = 0; i < e.length; i++) {
+      const s = e[i];
+      s && !s.paused && (s.paused = !0, t.push(s.target));
     }
     return t;
   }
@@ -1162,28 +1772,28 @@ class ce {
   }
   update(t) {
     const e = this._arrayTargets;
-    let s;
-    for (let i = 0; i < e.length; i++) {
-      if (this._currentTarget = e[i], s = this._currentTarget, !s.paused && s.actions) {
-        for (s.lock = !0, s.actionIndex = 0; s.actionIndex < s.actions.length; s.actionIndex++)
-          if (s.currentAction = s.actions[s.actionIndex], !!s.currentAction) {
-            if (s.currentAction.step(
-              t * (this._isActionInternal(s.currentAction) ? s.currentAction.getSpeed() : 1)
-            ), s.currentAction && s.currentAction.isDone()) {
-              s.currentAction.stop();
-              const r = s.currentAction;
-              s.currentAction = null, this.removeAction(r);
+    let i;
+    for (let s = 0; s < e.length; s++) {
+      if (this._currentTarget = e[s], i = this._currentTarget, !i.paused && i.actions) {
+        for (i.lock = !0, i.actionIndex = 0; i.actionIndex < i.actions.length; i.actionIndex++)
+          if (i.currentAction = i.actions[i.actionIndex], !!i.currentAction) {
+            if (i.currentAction.step(
+              t * (this._isActionInternal(i.currentAction) ? i.currentAction.getSpeed() : 1)
+            ), i.currentAction && i.currentAction.isDone()) {
+              i.currentAction.stop();
+              const r = i.currentAction;
+              i.currentAction = null, this.removeAction(r);
             }
-            s.currentAction = null;
+            i.currentAction = null;
           }
-        s.lock = !1;
+        i.lock = !1;
       }
-      s.actions.length === 0 && this._deleteHashElement(s) && i--;
+      i.actions.length === 0 && this._deleteHashElement(i) && s--;
     }
   }
   _getElement(t, e) {
-    let s = this._elementPool.pop();
-    return s || (s = new oe()), s.target = t, s.paused = !!e, s;
+    let i = this._elementPool.pop();
+    return i || (i = new ce()), i.target = t, i.paused = !!e, i;
   }
   _putElement(t) {
     t.actions.length = 0, t.actionIndex = 0, t.currentAction = null, t.paused = !1, t.target = null, t.lock = !1, this._elementPool.push(t);
@@ -1192,10 +1802,10 @@ class ce {
     let e = !1;
     if (t && !t.lock && this._hashTargets.get(t.target)) {
       this._hashTargets.delete(t.target);
-      const s = this._arrayTargets;
-      for (let i = 0, r = s.length; i < r; i++)
-        if (s[i] === t) {
-          s.splice(i, 1);
+      const i = this._arrayTargets;
+      for (let s = 0, r = i.length; s < r; s++)
+        if (i[s] === t) {
+          i.splice(s, 1);
           break;
         }
       this._putElement(t), e = !0;
@@ -1208,7 +1818,7 @@ class ce {
 }
 const W = class W {
   constructor() {
-    this.actionMgr = new ce();
+    this.actionMgr = new he();
   }
   static get instance() {
     return this._instance || (this._instance = new W()), this._instance;
@@ -1221,100 +1831,100 @@ const W = class W {
   }
 };
 W._instance = null;
-let f = W;
-const he = () => 0, le = (n) => n, _t = (n) => n * n, pt = (n) => n * (2 - n), ue = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), gt = (n) => n * n * n, ft = (n) => --n * n * n + 1, de = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), mt = (n) => n * n * n * n, At = (n) => 1 - --n * n * n * n, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), yt = (n) => n * n * n * n * n, vt = (n) => --n * n * n * n * n + 1, pe = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), wt = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), Tt = (n) => Math.sin(n * Math.PI / 2), ge = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), St = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), Mt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), fe = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), xt = (n) => 1 - Math.sqrt(1 - n * n), bt = (n) => Math.sqrt(1 - --n * n), me = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), Ct = (n) => {
+let p = W;
+const le = () => 0, ue = (n) => n, gt = (n) => n * n, _t = (n) => n * (2 - n), fe = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), pt = (n) => n * n * n, mt = (n) => --n * n * n + 1, de = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), At = (n) => n * n * n * n, wt = (n) => 1 - --n * n * n * n, ge = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), yt = (n) => n * n * n * n * n, vt = (n) => --n * n * n * n * n + 1, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), Ct = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), Tt = (n) => Math.sin(n * Math.PI / 2), pe = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), St = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), xt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), me = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), bt = (n) => 1 - Math.sqrt(1 - n * n), Mt = (n) => Math.sqrt(1 - --n * n), Ae = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), It = (n) => {
   let t, e = 0.1;
-  const s = 0.4;
-  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = s / 4) : t = s * Math.asin(1 / e) / (2 * Math.PI), -(e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / s)));
-}, It = (n) => {
+  const i = 0.4;
+  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), -(e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)));
+}, Et = (n) => {
   let t, e = 0.1;
-  const s = 0.4;
-  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = s / 4) : t = s * Math.asin(1 / e) / (2 * Math.PI), e * Math.pow(2, -10 * n) * Math.sin((n - t) * (2 * Math.PI) / s) + 1);
-}, Ae = (n) => {
+  const i = 0.4;
+  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), e * Math.pow(2, -10 * n) * Math.sin((n - t) * (2 * Math.PI) / i) + 1);
+}, we = (n) => {
   let t, e = 0.1;
-  const s = 0.4;
-  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = s / 4) : t = s * Math.asin(1 / e) / (2 * Math.PI), n *= 2, n < 1 ? -0.5 * (e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / s)) : e * Math.pow(2, -10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / s) * 0.5 + 1);
-}, Bt = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Et = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, ye = (n) => {
+  const i = 0.4;
+  return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), n *= 2, n < 1 ? -0.5 * (e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)) : e * Math.pow(2, -10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i) * 0.5 + 1);
+}, Bt = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Ot = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, ye = (n) => {
   const t = 2.5949095;
   return n *= 2, n < 1 ? 0.5 * (n * n * ((t + 1) * n - t)) : 0.5 * ((n -= 2) * n * ((t + 1) * n + t) + 2);
-}, Y = (n) => 1 - F(1 - n), F = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, ve = (n) => n < 0.5 ? Y(n * 2) * 0.5 : F(n * 2 - 1) * 0.5 + 0.5, we = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), Te = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), p = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, Se = p(_t, pt), Me = p(gt, ft), xe = p(mt, At), be = p(yt, vt), Ce = p(wt, Tt), Ie = p(St, Mt), Be = p(xt, bt), Ee = p(Ct, It), Oe = p(Bt, Et), De = p(Y, F), it = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, tt = (n) => 1 - R(1 - n), R = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, ve = (n) => n < 0.5 ? tt(n * 2) * 0.5 : R(n * 2 - 1) * 0.5 + 0.5, Ce = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), Te = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), g = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, Se = g(gt, _t), xe = g(pt, mt), be = g(At, wt), Me = g(yt, vt), Ie = g(Ct, Tt), Ee = g(St, xt), Be = g(bt, Mt), Oe = g(It, Et), Pe = g(Bt, Ot), De = g(tt, R), ht = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   backIn: Bt,
   backInOut: ye,
-  backOut: Et,
-  backOutIn: Oe,
-  bounceIn: Y,
+  backOut: Ot,
+  backOutIn: Pe,
+  bounceIn: tt,
   bounceInOut: ve,
-  bounceOut: F,
+  bounceOut: R,
   bounceOutIn: De,
-  circIn: xt,
-  circInOut: me,
-  circOut: bt,
+  circIn: bt,
+  circInOut: Ae,
+  circOut: Mt,
   circOutIn: Be,
-  constant: he,
-  cubicIn: gt,
+  constant: le,
+  cubicIn: pt,
   cubicInOut: de,
-  cubicOut: ft,
-  cubicOutIn: Me,
-  elasticIn: Ct,
-  elasticInOut: Ae,
-  elasticOut: It,
-  elasticOutIn: Ee,
+  cubicOut: mt,
+  cubicOutIn: xe,
+  elasticIn: It,
+  elasticInOut: we,
+  elasticOut: Et,
+  elasticOutIn: Oe,
   expoIn: St,
-  expoInOut: fe,
-  expoOut: Mt,
-  expoOutIn: Ie,
+  expoInOut: me,
+  expoOut: xt,
+  expoOutIn: Ee,
   fade: Te,
-  linear: le,
-  quadIn: _t,
-  quadInOut: ue,
-  quadOut: pt,
+  linear: ue,
+  quadIn: gt,
+  quadInOut: fe,
+  quadOut: _t,
   quadOutIn: Se,
-  quartIn: mt,
-  quartInOut: _e,
-  quartOut: At,
-  quartOutIn: xe,
+  quartIn: At,
+  quartInOut: ge,
+  quartOut: wt,
+  quartOutIn: be,
   quintIn: yt,
-  quintInOut: pe,
+  quintInOut: _e,
   quintOut: vt,
-  quintOutIn: be,
-  sineIn: wt,
-  sineInOut: ge,
+  quintOutIn: Me,
+  sineIn: Ct,
+  sineInOut: pe,
   sineOut: Tt,
-  sineOutIn: Ce,
-  smooth: we
+  sineOutIn: Ie,
+  smooth: Ce
 }, Symbol.toStringTag, { value: "Module" })), We = (n) => {
   const t = n.charAt(0);
   if (/[A-Z]/.test(t)) {
     n = n.replace(t, t.toLowerCase());
     const e = n.split("-");
     if (e.length === 2) {
-      const s = e[0];
-      if (s === "linear")
+      const i = e[0];
+      if (i === "linear")
         n = "linear";
       else {
-        const i = e[1];
-        switch (s) {
+        const s = e[1];
+        switch (i) {
           case "quadratic":
-            n = `quad${i}`;
+            n = `quad${s}`;
             break;
           case "quartic":
-            n = `quart${i}`;
+            n = `quart${s}`;
             break;
           case "quintic":
-            n = `quint${i}`;
+            n = `quint${s}`;
             break;
           case "sinusoidal":
-            n = `sine${i}`;
+            n = `sine${s}`;
             break;
           case "exponential":
-            n = `expo${i}`;
+            n = `expo${s}`;
             break;
           case "circular":
-            n = `circ${i}`;
+            n = `circ${s}`;
             break;
           default:
-            n = s + i;
+            n = i + s;
             break;
         }
       }
@@ -1323,22 +1933,22 @@ const he = () => 0, le = (n) => n, _t = (n) => n * n, pt = (n) => n * (2 - n), u
   return n;
 };
 class D extends h {
-  constructor(t, e, s) {
-    if (super(), s == null)
-      s = /* @__PURE__ */ Object.create(null);
-    else if (s.easing && typeof s.easing == "string" && (s.easing = We(s.easing)), s.progress || (s.progress = this.progress), s.easing && typeof s.easing == "string") {
-      const i = s.easing;
-      s.easing = it[i];
+  constructor(t, e, i) {
+    if (super(), i == null)
+      i = /* @__PURE__ */ Object.create(null);
+    else if (i.easing && typeof i.easing == "string" && (i.easing = We(i.easing)), i.progress || (i.progress = this.progress), i.easing && typeof i.easing == "string") {
+      const s = i.easing;
+      i.easing = ht[s];
     }
-    this._opts = s, this._props = /* @__PURE__ */ Object.create(null);
-    for (const i in e) {
-      if (!e.hasOwnProperty(i)) continue;
-      let r = e[i];
+    this._opts = i, this._props = /* @__PURE__ */ Object.create(null);
+    for (const s in e) {
+      if (!e.hasOwnProperty(s)) continue;
+      let r = e[s];
       if (typeof r == "function" && (r = r()), r == null || typeof r == "string") continue;
-      let a, c;
-      r.value !== void 0 && (r.easing || r.progress) && (typeof r.easing == "string" ? a = it[r.easing] : a = r.easing, c = r.progress, r = r.value);
-      const o = /* @__PURE__ */ Object.create(null);
-      o.value = r, o.easing = a, o.progress = c, this._props[i] = o;
+      let o, c;
+      r.value !== void 0 && (r.easing || r.progress) && (typeof r.easing == "string" ? o = ht[r.easing] : o = r.easing, c = r.progress, r = r.value);
+      const a = /* @__PURE__ */ Object.create(null);
+      a.value = r, a.easing = o, a.progress = c, this._props[s] = a;
     }
     this._originProps = e, this.initWithDuration(t);
   }
@@ -1348,18 +1958,18 @@ class D extends h {
   }
   startWithTarget(t) {
     h.prototype.startWithTarget.call(this, t);
-    const e = !!this._opts.relative, s = this._props;
-    for (const i in s) {
-      const r = t[i];
+    const e = !!this._opts.relative, i = this._props;
+    for (const s in i) {
+      const r = t[s];
       if (r === void 0)
         continue;
-      const a = s[i], c = a.value;
+      const o = i[s], c = o.value;
       if (typeof r == "number")
-        a.start = r, a.current = r, a.end = e ? r + c : c;
+        o.start = r, o.current = r, o.end = e ? r + c : c;
       else if (typeof r == "object") {
-        a.start == null && (a.start = {}, a.current = {}, a.end = {});
-        for (const o in c)
-          isNaN(r[o]) || (a.start[o] = r[o], a.current[o] = r[o], a.end[o] = e ? r[o] + c[o] : c[o]);
+        o.start == null && (o.start = {}, o.current = {}, o.end = {});
+        for (const a in c)
+          isNaN(r[a]) || (o.start[a] = r[a], o.current[a] = r[a], o.end[a] = e ? r[a] + c[a] : c[a]);
       }
     }
     this._opts.onStart && this._opts.onStart(this.target);
@@ -1367,26 +1977,26 @@ class D extends h {
   update(t) {
     const e = this.target;
     if (!e) return;
-    const s = this._props, i = this._opts;
+    const i = this._props, s = this._opts;
     let r = t;
-    i.easing && (r = i.easing(t));
-    const a = i.progress;
-    for (const c in s) {
-      const o = s[c], g = o.easing ? o.easing(t) : r, u = o.progress ? o.progress : a, _ = o.start, M = o.end;
-      if (typeof _ == "number")
-        o.current = u(_, M, o.current, g);
-      else if (typeof _ == "object")
-        for (const A in _)
-          o.current[A] = u(_[A], M[A], o.current[A], g);
-      e[c] = o.current;
+    s.easing && (r = s.easing(t));
+    const o = s.progress;
+    for (const c in i) {
+      const a = i[c], _ = a.easing ? a.easing(t) : r, u = a.progress ? a.progress : o, d = a.start, S = a.end;
+      if (typeof d == "number")
+        a.current = u(d, S, a.current, _);
+      else if (typeof d == "object")
+        for (const A in d)
+          a.current[A] = u(d[A], S[A], a.current[A], _);
+      e[c] = a.current;
     }
-    i.onUpdate && i.onUpdate(this.target, t), t === 1 && i.onComplete && i.onComplete(this.target);
+    s.onUpdate && s.onUpdate(this.target, t), t === 1 && s.onComplete && s.onComplete(this.target);
   }
-  progress(t, e, s, i) {
-    return t + (e - t) * i;
+  progress(t, e, i, s) {
+    return t + (e - t) * s;
   }
 }
-class J extends I {
+class et extends E {
   constructor(t) {
     super(), this._props = {}, t !== void 0 && this.init(t);
   }
@@ -1397,15 +2007,15 @@ class J extends I {
   }
   update() {
     const t = this._props, e = this.target;
-    for (const s in t)
-      e[s] = t[s];
+    for (const i in t)
+      e[i] = t[i];
   }
   clone() {
-    const t = new J();
+    const t = new et();
     return t.init(this._props), t;
   }
 }
-const d = class d {
+const f = class f {
   constructor(t) {
     this._actions = [], this._finalAction = null, this._target = null, this._tag = -1, this._target = t === void 0 ? null : t;
   }
@@ -1419,108 +2029,108 @@ const d = class d {
     return this._target = t, this;
   }
   start() {
-    return this._target ? (this._finalAction && f.instance.ActionManager.removeAction(this._finalAction), this._finalAction = this._union(), this._finalAction.tag = this._tag, f.instance.ActionManager.addAction(this._finalAction, this._target, !1), this) : (console.warn("Please set target to tween first"), this);
+    return this._target ? (this._finalAction && p.instance.ActionManager.removeAction(this._finalAction), this._finalAction = this._union(), this._finalAction.tag = this._tag, p.instance.ActionManager.addAction(this._finalAction, this._target, !1), this) : (console.warn("Please set target to tween first"), this);
   }
   stop() {
-    return this._finalAction && f.instance.ActionManager.removeAction(this._finalAction), this;
+    return this._finalAction && p.instance.ActionManager.removeAction(this._finalAction), this;
   }
   clone(t) {
     const e = this._union();
-    return new d(t).then(e.clone());
+    return new f(t).then(e.clone());
   }
   union() {
     const t = this._union();
     return this._actions.length = 0, this._actions.push(t), this;
   }
-  to(t, e, s) {
-    s = s || /* @__PURE__ */ Object.create(null), s.relative = !1;
-    const i = new D(t, e, s);
-    return this._actions.push(i), this;
+  to(t, e, i) {
+    i = i || /* @__PURE__ */ Object.create(null), i.relative = !1;
+    const s = new D(t, e, i);
+    return this._actions.push(s), this;
   }
-  from(t, e, s) {
-    s = s || /* @__PURE__ */ Object.create(null), s.relative = !0;
-    const i = new D(t, e, s);
-    return this._actions.push(i), this;
+  from(t, e, i) {
+    i = i || /* @__PURE__ */ Object.create(null), i.relative = !0;
+    const s = new D(t, e, i);
+    return this._actions.push(s), this;
   }
   set(t) {
-    const e = new J(t);
+    const e = new et(t);
     return this._actions.push(e), this;
   }
   delay(t) {
-    const e = new T(t);
+    const e = new C(t);
     return this._actions.push(e), this;
   }
   call(t) {
-    const e = new H(t);
+    const e = new k(t);
     return this._actions.push(e), this;
   }
   sequence(...t) {
-    const e = d._wrappedSequence(...t);
+    const e = f._wrappedSequence(...t);
     return this._actions.push(e), this;
   }
   parallel(...t) {
-    const e = d._wrappedParallel(...t);
+    const e = f._wrappedParallel(...t);
     return this._actions.push(e), this;
   }
   repeat(t, e) {
     if (t === 1 / 0)
       return this.repeatForever(e);
-    const s = this._actions;
-    let i;
-    e instanceof d ? i = e._union() : i = s.pop();
-    const r = new E(i, t);
-    return s.push(r), this;
+    const i = this._actions;
+    let s;
+    e instanceof f ? s = e._union() : s = i.pop();
+    const r = new O(s, t);
+    return i.push(r), this;
   }
   repeatForever(t) {
     const e = this._actions;
-    let s;
-    t instanceof d ? s = t._union() : s = e.pop();
-    const i = new O(s);
-    return e.push(i), this;
+    let i;
+    t instanceof f ? i = t._union() : i = e.pop();
+    const s = new P(i);
+    return e.push(s), this;
   }
   reverseTime(t) {
     const e = this._actions;
-    let s;
-    t instanceof d ? s = t._union() : s = e.pop();
-    const i = new X(s);
-    return e.push(i), this;
+    let i;
+    t instanceof f ? i = t._union() : i = e.pop();
+    const s = new K(i);
+    return e.push(s), this;
   }
   static stopAll() {
-    f.instance.ActionManager.removeAllActions();
+    p.instance.ActionManager.removeAllActions();
   }
   static stopAllByTag(t, e) {
-    f.instance.ActionManager.removeAllActionsByTag(t, e);
+    p.instance.ActionManager.removeAllActionsByTag(t, e);
   }
   static stopAllByTarget(t) {
-    f.instance.ActionManager.removeAllActionsFromTarget(t);
+    p.instance.ActionManager.removeAllActionsFromTarget(t);
   }
   _union() {
     const t = this._actions;
     let e;
-    return t.length === 1 ? e = t[0] : e = $(t), e;
+    return t.length === 1 ? e = t[0] : e = N(t), e;
   }
   static _wrappedSequence(...t) {
-    const e = d._tmp_args;
+    const e = f._tmp_args;
     e.length = 0;
-    for (let s = t.length, i = 0; i < s; i++) {
-      const r = e[i] = t[i];
-      r instanceof d && (e[i] = r._union());
+    for (let i = t.length, s = 0; s < i; s++) {
+      const r = e[s] = t[s];
+      r instanceof f && (e[s] = r._union());
     }
-    return $.apply($, e);
+    return N.apply(N, e);
   }
   static _wrappedParallel(...t) {
-    const e = d._tmp_args;
+    const e = f._tmp_args;
     e.length = 0;
-    for (let s = t.length, i = 0; i < s; i++) {
-      const r = e[i] = t[i];
-      r instanceof d && (e[i] = r._union());
+    for (let i = t.length, s = 0; s < i; s++) {
+      const r = e[s] = t[s];
+      r instanceof f && (e[s] = r._union());
     }
-    return st.apply(st, e);
+    return ct.apply(ct, e);
   }
 };
-d._tmp_args = [];
-let nt = d;
-class ze {
+f._tmp_args = [];
+let lt = f;
+class Ne {
   constructor(t) {
     this._viewBuilder = t;
   }
@@ -1531,17 +2141,17 @@ class ze {
     this._view.destroy({ children: !0 });
   }
 }
-class rt {
-  constructor(t, e, s) {
-    this._pixi = t, this._viewBuilder = e, this._layers = s;
+class ut {
+  constructor(t, e, i) {
+    this._pixi = t, this._viewBuilder = e, this._layers = i;
   }
   setScene(t) {
-    var i;
+    var s;
     const e = this._pixi.stage.getChildByName("Scene");
     if (!e) return;
-    (i = this._currentScene) == null || i.destroy();
-    const s = new t(this._viewBuilder);
-    s.init(e), this._currentScene = s, this._layers.sortAll();
+    (s = this._currentScene) == null || s.destroy();
+    const i = new t(this._viewBuilder);
+    i.init(e), this._currentScene = i, this._layers.sortAll();
   }
   addLayer(t) {
     this._layers.createGroups(t.name, t.order || 0, t.sortable || !1);
@@ -1551,13 +2161,13 @@ class rt {
     e.removeChildren(), this._viewBuilder.create(t, e);
   }
   removeFromShared(t) {
-    const s = this._pixi.stage.getChildByName("Shared").getChildByName(t, !0);
-    s && s.destroy({ children: !0 });
+    const i = this._pixi.stage.getChildByName("Shared").getChildByName(t, !0);
+    i && i.destroy({ children: !0 });
   }
 }
-class at {
-  constructor(t, e, s) {
-    this._lifecycle = t, this._executionController = e, this._spineController = s, this._paused = !1, this._gameSpeed = 1;
+class ft {
+  constructor(t, e, i) {
+    this._lifecycle = t, this._executionController = e, this._spineController = i, this._paused = !1, this._gameSpeed = 1;
   }
   /**
    * @description is game paused
@@ -1590,19 +2200,19 @@ class at {
     this._gameSpeed = t, this._lifecycle.setSpeedMultiplier(this._gameSpeed), this._spineController.multyplyTimeScaleAll(this._gameSpeed);
   }
 }
-class $e extends Pt {
+class Ge extends Lt {
   connectRender(t, e) {
-    this.registerGlobalServices([{ provide: U, useFactory: () => t }]), this.appendToDOM(t, e), this.connectDebugger(t);
+    this.registerGlobalServices([{ provide: G, useFactory: () => t }]), this.appendToDOM(t, e), this.connectDebugger(t);
   }
   init() {
     super.init();
-    const t = l.instance.get(U);
+    const t = l.instance.get(G);
     this.initializeDependencies(t);
-    const e = l.instance.get(Q), s = l.instance.get(z);
-    this.createStage(t), this.createRootView("Scene", t), this.createRootView("Shared", t), e.addUpdateCallback((i) => this.update(i, s));
+    const e = l.instance.get(it), i = l.instance.get($);
+    this.createStage(t), this.createRootView("Scene", t), this.createRootView("Shared", t), e.addUpdateCallback((s) => this.update(s, i));
   }
   update(t, e) {
-    e.update(t), f.instance.update(t);
+    e.update(t), p.instance.update(t);
   }
   appendToDOM(t, e) {
     e.appendChild(t.view);
@@ -1611,52 +2221,54 @@ class $e extends Pt {
     globalThis.__PIXI_APP__ = t;
   }
   initializeDependencies(t) {
-    const e = new b(), s = new j(e), i = new G(), r = new k(e), a = new B(), c = new z(), o = new N(), g = new tt(), u = new et(), _ = new rt(t, s, a), M = l.instance.get(Q), A = l.instance.get(Lt), w = new at(M, A, o);
+    const e = new M(), i = new H(e), s = new U(), r = new rt(e), o = new B(), c = new $(), a = new j(), _ = new ot(), u = new at(), d = new ut(t, i, o), S = l.instance.get(it), A = l.instance.get(Ft), v = new ft(S, A, a);
     this.registerGlobalServices([
-      { provide: b, useFactory: () => e },
-      { provide: j, useFactory: () => s },
-      { provide: G, useFactory: () => i },
-      { provide: k, useFactory: () => r },
-      { provide: B, useFactory: () => a },
-      { provide: z, useFactory: () => c },
-      { provide: N, useFactory: () => o },
-      { provide: tt, useFactory: () => g },
-      { provide: et, useFactory: () => u },
-      { provide: rt, useFactory: () => _ },
-      { provide: at, useFactory: () => w }
+      { provide: M, useFactory: () => e },
+      { provide: H, useFactory: () => i },
+      { provide: U, useFactory: () => s },
+      { provide: rt, useFactory: () => r },
+      { provide: B, useFactory: () => o },
+      { provide: $, useFactory: () => c },
+      { provide: j, useFactory: () => a },
+      { provide: ot, useFactory: () => _ },
+      { provide: at, useFactory: () => u },
+      { provide: ut, useFactory: () => d },
+      { provide: ft, useFactory: () => v }
     ]);
   }
   createStage(t) {
-    const e = l.instance.get(B), s = new $t.Stage();
-    s.sortableChildren = !0, t.stage = s, t.stage.x = t.view.width / 2, t.stage.y = t.view.height / 2, e.setStage(s), e.sortAll();
+    const e = l.instance.get(B), i = new Nt.Stage();
+    i.sortableChildren = !0, t.stage = i, t.stage.x = t.view.width / 2, t.stage.y = t.view.height / 2, e.setStage(i), e.sortAll();
   }
   createRootView(t, e) {
-    const s = new x();
-    s.name = t, e.stage.addChild(s);
+    const i = new b();
+    i.name = t, e.stage.addChild(i);
   }
 }
 export {
   Kt as Asset,
-  P as AssetStatus,
-  b as AssetsManager,
-  $e as EmpressPixiCore,
-  at as FlowController,
+  L as AssetStatus,
+  M as AssetsManager,
+  Ge as EmpressPixiCore,
+  ft as FlowController,
   B as Layers,
-  k as Loader,
-  re as ObjectPool,
-  Qt as OnElementInteractSignal,
-  Yt as OnViewCreatedSignal,
-  z as ParticleEmitter,
-  Jt as PixiEntity,
-  qe as PixiItemPoolFactory,
-  et as PoolsController,
-  ze as Scene,
-  rt as SceneController,
-  N as SpineController,
-  tt as SpineUtils,
-  nt as Tween,
+  rt as Loader,
+  x as NodeBuilder,
+  oe as ObjectPool,
+  Zt as OnElementInteractSignal,
+  Jt as OnViewCreatedSignal,
+  $ as ParticleEmitter,
+  Qt as PixiEntity,
+  $e as PixiItemPoolFactory,
+  at as PoolsController,
+  Ne as Scene,
+  ut as SceneController,
+  j as SpineController,
+  ot as SpineUtils,
+  lt as Tween,
   D as TweenAction,
-  f as TweenSystem,
-  j as ViewBuilder,
-  G as ViewEntity
+  p as TweenSystem,
+  qe as View,
+  H as ViewBuilder,
+  U as ViewEntity
 };

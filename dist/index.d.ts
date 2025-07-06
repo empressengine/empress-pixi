@@ -530,6 +530,411 @@ export declare class Loader implements ILoader {
     private ignoreFormats;
 }
 
+/**
+ * @description
+ * Билдер для создания конфигураций Pixi-объектов.
+ * Позволяет в fluent-стиле создавать такие Pixi-объекты как:
+ * - Container
+ * - Sprite
+ * - Text
+ * - NineSlicePlane
+ * - Spine
+ * - BitmapText
+ *
+ * Также позволяет гибко переопределять и перенастраивать уже созданные конфигурации.
+ *
+ * @example
+ *
+ * ```typescript
+ * const builder = new NodeBuilder();
+ *
+ * builder
+ *     .node(Container, 'test__node')
+ *     .addChild((child) => {
+ *         child
+ *             .node(Container, 'test__node_child')
+ *             .position(0, 0)
+ *             .addChild((child) => {
+ *                 child
+ *                     .node(Container, 'test__node_child_child')
+ *                     .scale(2, 2)
+ *             })
+ *     })
+ *     .create();
+ * ```
+ */
+export declare class NodeBuilder {
+    private _config;
+    constructor(config?: TreeNode);
+    /**
+     * @description
+     * Создает корневую ноду указанного типа.
+     *
+     * @param type - тип Pixi-объекта.
+     * @param name - имя ноды.
+     */
+    node(type: NodeType, name?: string): this;
+    /**
+     * @description
+     * Создает корневую ноду из View.
+     *
+     * @param view - View, из которого создается конфигурация.
+     */
+    view(view: View): this;
+    /**
+     * @description
+     * Создает корневую ноду из конфигурации.
+     *
+     * @param config - конфигурация ноды.
+     */
+    config(config: TreeNode): this;
+    /**
+     * @description
+     * Устанавливает имя ноды.
+     *
+     * @param name - имя ноды.
+     */
+    name(name: string): this;
+    /**
+     * @description
+     * Устанавливает позицию ноды.
+     *
+     * @param x - x-координата.
+     * @param y - y-координата.
+     */
+    position(x: number, y: number): this;
+    /**
+     * @description
+     * Устанавливает x-координату ноды.
+     *
+     * @param x - x-координата.
+     */
+    x(x: number): this;
+    /**
+     * @description
+     * Устанавливает y-координату ноды.
+     *
+     * @param y - y-координата.
+     */
+    y(y: number): this;
+    /**
+     * @description
+     * Устанавливает скейл ноды.
+     *
+     * @param x - x-координата.
+     * @param y - y-координата.
+     */
+    scale(x: number, y: number): this;
+    /**
+     * @description
+     * Устанавливает скейл ноды по x.
+     *
+     * @param x - x-координата.
+     */
+    scaleX(x: number): this;
+    /**
+     * @description
+     * Устанавливает скейл ноды по y.
+     *
+     * @param y - y-координата.
+     */
+    scaleY(y: number): this;
+    /**
+     * @description
+     * Устанавливает ширину ноды.
+     *
+     * @param width - ширина ноды.
+     */
+    width(width: number): this;
+    /**
+     * @description
+     * Устанавливает высоту ноды.
+     *
+     * @param height - высота ноды.
+     */
+    height(height: number): this;
+    /**
+     * @description
+     * Устанавливает ширину и высоту ноды.
+     *
+     * @param width - ширина ноды.
+     * @param height - высота ноды.
+     */
+    size(width: number, height: number): this;
+    /**
+     * @description
+     * Устанавливает центр ноды.
+     *
+     * @param x - x-координата.
+     * @param y - y-координата.
+     */
+    pivot(x: number, y: number): this;
+    /**
+     * @description
+     * Устанавливает видимость ноды.
+     *
+     * @param visible - видимость ноды.
+     */
+    visible(visible: boolean): this;
+    /**
+     * @description
+     * Устанавливает прозрачность ноды.
+     *
+     * @param alpha - прозрачность ноды.
+     */
+    alpha(alpha: number): this;
+    /**
+     * @description
+     * Устанавливает поворот ноды через свойство rotation.
+     *
+     * @param rotation - угол ноды.
+     */
+    rotation(rotation: number): this;
+    /**
+     * @description
+     * Устанавливает поворот ноды через свойство angle.
+     *
+     * @param angle - угол ноды.
+     */
+    angle(angle: number): this;
+    /**
+     * @description
+     * Устанавливает родительскую группу ноды для сортировки по слоям.
+     *
+     * @param group - группа ноды.
+     */
+    parentGroup(group: string): this;
+    /**
+     * @description
+     * Устанавливает порядок ноды для сортировки по слоям.
+     *
+     * @param order - порядок ноды.
+     */
+    order(order: number): this;
+    /**
+     * @description
+     * Устанавливает индекс ноды для сортировки в рамках родителя.
+     *
+     * @param zIndex - индекс ноды.
+     */
+    zIndex(zIndex: number): this;
+    /**
+     * @description
+     * Устанавливает возможность сортировки дочерних нод.
+     *
+     * @param sortable - возможность сортировки дочерних нод.
+     */
+    sortable(sortable: boolean): this;
+    /**
+     * @description
+     * Определяет будут ли дочерние ноды интерактивными.
+     *
+     * @param interactive - интерактивность дочерних нод.
+     */
+    interactiveChildren(interactive: boolean): this;
+    /**
+     * @description
+     * Устанавливает режим обработки событий.
+     *
+     * @param eventMode - режим обработки событий.
+     */
+    eventMode(eventMode: PixiEventMode): this;
+    /**
+     * @description
+     * Устанавливает типы событий, которые будут обрабатываться.
+     *
+     * @param eventType - типы событий.
+     */
+    eventType(eventType: PixiEventType): this;
+    /**
+     * @description
+     * Устанавливает курсор при наведении на ноду.
+     *
+     * @param cursor - тип курсора.
+     */
+    cursor(cursor: string): this;
+    /**
+     * @description
+     * Устанавливает опции интерактивности.
+     *
+     * @param interactive - опции интерактивности.
+     */
+    interactive(interactive: IInteractivityOptions): this;
+    /**
+     * @description
+     * Устанавливает область, в которой будет обрабатываться событие.
+     *
+     * @param hitArea - опции области, в которой будет обрабатываться событие.
+     */
+    hitArea(hitArea: Polygon): this;
+    /**
+     * @description
+     * Устанавливает маску для ноды.
+     *
+     * @param mask - опции маски для ноды.
+     */
+    mask(mask: IMaskOptions): this;
+    /**
+     * @description
+     * Добавляет дочернюю ноду.
+     *
+     * @param callback - функция, которая настраивает дочернюю ноду.
+     */
+    addChild(callback: (child: NodeBuilder) => void): this;
+    /**
+     * @description
+     * Находит дочернюю ноду по имени для переопределения её конфигурации.
+     * Поиск происходит по первому уровню вложенности.
+     *
+     * @param name - имя дочерней ноды.
+     * @param callback - функция, которая настраивает дочернюю ноду.
+     */
+    getChild(name: string, callback: (child: NodeBuilder) => void): this;
+    /**
+     * @description
+     * Находит дочернюю ноду по имени для переопределения её конфигурации.
+     * Поиск происходит по всему дереву вложенности.
+     *
+     * @param name - имя дочерней ноды.
+     * @param callback - функция, которая настраивает дочернюю ноду.
+     */
+    getDeepChild(name: string, callback: (child: NodeBuilder) => void): this;
+    /**
+     * @description
+     * Удаляет дочернюю ноду по имени из первого уровня вложенности.
+     *
+     * @param name - имя дочерней ноды.
+     */
+    removeChild(name: string): this;
+    /**
+     * @description
+     * Удаляет дочернюю ноду по имени из любого уровня вложенности.
+     *
+     * @param name - имя дочерней ноды.
+     */
+    removeDeepChild(name: string): this;
+    /**
+     * @description
+     * Устанавливает якорь для ноды.
+     *
+     * @param x - x-координата якоря.
+     * @param y - y-координата якоря.
+     */
+    anchor(x: number, y: number): this;
+    /**
+     * @description
+     * Устанавливает текстуру для ноды.
+     *
+     * @param texture - текстура.
+     */
+    texture(texture: string): this;
+    /**
+     * @description
+     * Устанавливает цвет для ноды.
+     *
+     * @param tint - цвет.
+     */
+    tint(tint: number): this;
+    /**
+     * @description
+     * Устанавливает текст для ноды.
+     *
+     * @param text - текст.
+     */
+    text(text: string): this;
+    /**
+     * @description
+     * Устанавливает стиль текста для ноды.
+     *
+     * @param style - стиль текста.
+     */
+    textStyle(style: Partial<ITextStyle>): this;
+    /**
+     * @description
+     * Устанавливает стиль текста для ноды.
+     *
+     * @param style - стиль текста.
+     */
+    bitmapTextStyle(style: IBitmapTextStyle): this;
+    /**
+     * @description
+     * Устанавливает ассет для ноды.
+     *
+     * @param asset - ассет.
+     */
+    spine(asset: string): this;
+    /**
+     * @description
+     * Устанавливает начальную анимацию для ноды.
+     *
+     * @param animation - начальная анимация.
+     */
+    initialAnimation(animation: string): this;
+    /**
+     * @description
+     * Устанавливает скин для ноды.
+     *
+     * @param skin - скин.
+     */
+    skin(skin: string): this;
+    /**
+     * @description
+     * Устанавливает количество повторений для ноды.
+     *
+     * @param loop - количество повторений.
+     */
+    loop(loop: number): this;
+    /**
+     * @description
+     * Устанавливает скорость воспроизведения для ноды.
+     *
+     * @param timeScale - скорость воспроизведения.
+     */
+    timeScale(timeScale: number): this;
+    /**
+     * @description
+     * Устанавливает параметры nine-slice для ноды.
+     *
+     * @param leftWidth - левая граница.
+     * @param rightWidth - правая граница.
+     * @param topHeight - верхняя граница.
+     * @param bottomHeight - нижняя граница.
+     */
+    nineSlice(leftWidth: number, rightWidth: number, topHeight: number, bottomHeight: number): this;
+    /**
+     * @description
+     * Добавляет компонент к ноде создавая Entity.
+     *
+     * @param component - компонент.
+     */
+    addComponent(component: Component): this;
+    /**
+     * @description
+     * Удаляет компонент из ноды.
+     *
+     * @param type - тип компонента.
+     */
+    removeComponent<T extends Component>(type: ComponentType<T>): this;
+    /**
+     * @description
+     * Создает конфигурацию ноды.
+     *
+     * @returns конфигурация ноды.
+     */
+    create(): TreeNode;
+    private checkConfig;
+    private checkChildren;
+    private deepSearchChild;
+    private deepRemoveChild;
+    private isSprite;
+    private isText;
+    private isBitmapText;
+    private isSpine;
+    private isNineSlicePlane;
+}
+
+export declare type NodeType = ViewType<Container> | ViewType<Sprite> | ViewType<Text_2> | ViewType<BitmapText> | ViewType<Spine> | ViewType<NineSlicePlane>;
+
 export declare class ObjectPool<T> {
     private _factory;
     private _size;
@@ -711,6 +1116,49 @@ export declare class TweenSystem {
     get ActionManager(): ActionManager;
     private readonly actionMgr;
     update(dt: number): void;
+}
+
+/**
+ * @description
+ * Базовый класс для создания конфигураций нод объектов PIXI.
+ *
+ * @example
+ *
+ * ```typescript
+ * class SimpleView extends View {
+ *     public setup(root: NodeBuilder): void {
+ *         root
+ *             .node(Container, 'simple__view')
+ *             .addChild((child) => {
+ *                 child
+ *                     .node(Container, 'simple__view_child')
+ *                     .position(0, 0)
+ *                     .addChild((child) => {
+ *                         child
+ *                             .node(Container, 'simple__view_child_child')
+ *                             .scale(2, 2)
+ *                     });
+ *     }
+ * }
+ * ```
+ */
+export declare abstract class View {
+    protected _builder: NodeBuilder;
+    constructor(config?: TreeNode);
+    /**
+     * @description
+     * Метод для настройки конфигурации ноды.
+     *
+     * @param root билдер для настройки конфигурации ноды.
+     */
+    abstract setup(root: NodeBuilder): void;
+    /**
+     * @description
+     * Создает конфигурацию ноды.
+     *
+     * @returns конфигурация ноды.
+     */
+    create(): TreeNode;
 }
 
 export declare class ViewBuilder implements IViewBuilder {
