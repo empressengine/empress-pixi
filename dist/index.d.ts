@@ -986,6 +986,55 @@ export declare class PoolsController implements IPoolsController {
     get<T>(name: string): ObjectPool<T>;
 }
 
+/**
+ * Сервис для управления префабами вьюх. Любая вьюха является префабом.
+ * Поэтому не обязательно все префабы регистрировать и инстанциировать через
+ * этот сервис. Можно использовать ViewBuilder напрямую. Однако, если View является
+ * частью нашей библиотеки, которая будет ипспользоваться в других проектах
+ * и мы понимаем, что нужно дать возможность подмены префаба внутри библиотеки,
+ * то мы можем зарегистрировать свой префаб в этом сервисе для того, чтобы
+ * пользователь мог подменить префаб внутри библиотеки.
+ *
+ * @class
+ * @property {Map<PrefabTemplate<any>, PrefabTemplate<any>>} _prefabs - Карта префабов.
+ * @property {ViewBuilder} _viewBuilder - Билдер для создания вьюх.
+ */
+export declare class PrefabService {
+    private _viewBuilder;
+    private _prefabs;
+    constructor(_viewBuilder: ViewBuilder);
+    /**
+     * Регистрирует префаб в сервисе.
+     *
+     * @param {PrefabTemplate<any>} template - Префаб для регистрации.
+     */
+    register(template: PrefabTemplate<any>): void;
+    /**
+     * Заменяет зарегистрированный префаб на новый.
+     *
+     * @param {PrefabTemplate<any>} template - Префаб для замены.
+     * @param {PrefabTemplate<any>} instance - Новый префаб.
+     */
+    replace(template: PrefabTemplate<any>, instance: PrefabTemplate<any>): void;
+    /**
+     * Получает зарегистрированный префаб.
+     *
+     * @param {PrefabTemplate<any>} template - Префаб для получения.
+     * @returns {PrefabTemplate<any>} Зарегистрированный префаб.
+     */
+    get<T extends View>(template: PrefabTemplate<T>): PrefabTemplate<T>;
+    /**
+     * Создает вьюху на основе зарегистрированного префаба.
+     *
+     * @param {View} instance - Префаб для создания.
+     * @param {Container} parent - Родительский контейнер для вьюхи.
+     * @returns {Container} Созданная вьюха.
+     */
+    create<T extends Container>(instance: View, parent?: Container): T;
+}
+
+export declare type PrefabTemplate<T extends View> = new (...args: any[]) => T;
+
 export declare abstract class Scene implements IScene {
     private _viewBuilder;
     private _view;

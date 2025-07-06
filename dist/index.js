@@ -1,8 +1,8 @@
-import { Signal as dt, Entity as Pt, ServiceContainer as l, Utils as Dt, EntityStorage as Wt, DeferredPromise as z, EmpressCore as Lt, LifeCycle as it, ExecutionController as Ft } from "empress-core";
-import { BitmapFontData as Rt, BitmapFont as st, Assets as q, Texture as zt, Spritesheet as qt, Container as b, Application as G, Graphics as nt, Sprite as X, BitmapText as Y, TextStyle as $t, Text as J, NineSlicePlane as Q } from "pixi.js";
-import * as Nt from "@pixi/layers";
-import { Group as Gt, Layer as Ut } from "@pixi/layers";
-import * as jt from "@pixi/particle-emitter";
+import { Signal as gt, Entity as Wt, ServiceContainer as l, Utils as Lt, EntityStorage as Ft, DeferredPromise as z, EmpressCore as Rt, LifeCycle as it, ExecutionController as zt } from "empress-core";
+import { BitmapFontData as qt, BitmapFont as st, Assets as q, Texture as $t, Spritesheet as Nt, Container as x, Application as G, Graphics as nt, Sprite as X, BitmapText as Y, TextStyle as Gt, Text as J, NineSlicePlane as Q } from "pixi.js";
+import * as Ut from "@pixi/layers";
+import { Group as jt, Layer as Ht } from "@pixi/layers";
+import * as Vt from "@pixi/particle-emitter";
 import { Spine as Z } from "pixi-spine";
 class B {
   constructor() {
@@ -13,7 +13,7 @@ class B {
   }
   createGroups(t, e, i) {
     var o;
-    const s = new Gt(e, i), r = new Ut(s);
+    const s = new jt(e, i), r = new Ht(s);
     r.name = t, this._groups.set(t, s), this._layers.set(t, r), (o = this._stage) == null || o.addChild(r);
   }
   getGroup(t) {
@@ -39,7 +39,7 @@ class B {
     });
   }
 }
-class Ht {
+class Xt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -54,7 +54,7 @@ class Ht {
       this._assetsManager.updateOnLoad(e, [{ name: o, asset: r[o], bundle: e }]);
   }
 }
-class Vt {
+class Yt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -62,12 +62,12 @@ class Vt {
     this._assetsManager.updateOnLoad(e, [{ name: t, asset: i[t], bundle: e }]);
   }
 }
-class Xt {
+class Jt {
   constructor(t) {
     this._assetsManager = t;
   }
   build(t, e, i) {
-    const s = new Rt(), r = i[t], o = {
+    const s = new qt(), r = i[t], o = {
       dot: ".",
       comma: ",",
       usd: "$",
@@ -80,9 +80,9 @@ class Xt {
         id: d,
         file: ""
       });
-      const A = (u.length > 1 ? o[u] : u).charCodeAt(0), v = r.textures[u];
+      const w = (u.length > 1 ? o[u] : u).charCodeAt(0), v = r.textures[u];
       return s.char.push({
-        id: A,
+        id: w,
         page: d,
         x: 0,
         y: 0,
@@ -99,11 +99,11 @@ class Xt {
       face: t,
       size: a[0].height
     };
-    const _ = new st(s, a, !0);
-    st.available[t] = _;
+    const g = new st(s, a, !0);
+    st.available[t] = g;
   }
 }
-class Yt {
+class Qt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -139,11 +139,11 @@ class rt {
   processBundle(t, e) {
     for (let i in e) {
       let s;
-      e[i].hasOwnProperty("spineData") ? s = this._behaviours.get("spine") : e[i] instanceof zt ? s = this._behaviours.get("texture") : e[i] instanceof qt ? s = this._behaviours.get("spritesheet") : t === "fonts" && (s = this._behaviours.get("bitmap")), s && s.build(i, t, e);
+      e[i].hasOwnProperty("spineData") ? s = this._behaviours.get("spine") : e[i] instanceof $t ? s = this._behaviours.get("texture") : e[i] instanceof Nt ? s = this._behaviours.get("spritesheet") : t === "fonts" && (s = this._behaviours.get("bitmap")), s && s.build(i, t, e);
     }
   }
   setupBehaviours() {
-    this._behaviours.set("spritesheet", new Ht(this._assetsManager)), this._behaviours.set("texture", new Vt(this._assetsManager)), this._behaviours.set("bitmap", new Xt(this._assetsManager)), this._behaviours.set("spine", new Yt(this._assetsManager));
+    this._behaviours.set("spritesheet", new Xt(this._assetsManager)), this._behaviours.set("texture", new Yt(this._assetsManager)), this._behaviours.set("bitmap", new Jt(this._assetsManager)), this._behaviours.set("spine", new Qt(this._assetsManager));
   }
   checkWebPSupport() {
     return new Promise((t) => {
@@ -190,7 +190,7 @@ class $ {
     this._emitters = /* @__PURE__ */ new Map();
   }
   createParticleEmitter(t, e, i) {
-    const s = new jt.Emitter(e, i);
+    const s = new Vt.Emitter(e, i);
     return this._emitters.set(t, s), s;
   }
   update(t) {
@@ -208,14 +208,14 @@ class $ {
     });
   }
 }
-const Jt = new dt();
+const Zt = new gt();
 var L = /* @__PURE__ */ ((n) => (n.Pending = "Pending", n.Loaded = "Loaded", n))(L || {});
-class Qt extends Pt {
+class kt extends Wt {
   get active() {
-    return this.getComponent(b).visible;
+    return this.getComponent(x).visible;
   }
   set active(t) {
-    const e = this.getComponent(b);
+    const e = this.getComponent(x);
     e.visible = t;
   }
 }
@@ -251,8 +251,8 @@ class U {
     return i.getComponent(e);
   }
 }
-const Zt = new dt();
-class T {
+const Kt = new gt();
+class S {
   setCommonData(t, e) {
     if (e.name = t.name, e.alpha = t.alpha === void 0 ? 1 : t.alpha, e.angle = t.angle || 0, e.rotation = t.rotation || 0, e.zIndex = t.zIndex || 0, e.zOrder = t.zOrder || 0, e.visible = t.visible !== void 0 ? t.visible : !0, e.sortableChildren = !!t.sortableChildren, t.position && (e.position = { x: t.position.x || 0, y: t.position.y || 0 }), t.relativePosition && this.setRelativePosition(t.relativePosition, e), t.scale && (e.scale = { x: t.scale.x || 1, y: t.scale.y || 1 }), t.pivot && (e.pivot = { x: t.pivot.x || 0, y: t.pivot.y || 0 }), t.width && (e.width = t.width), t.height && (e.height = t.height), t.hitArea && (e.hitArea = t.hitArea), t.parentGroup) {
       const s = l.instance.get(B);
@@ -260,7 +260,7 @@ class T {
     }
     let i = null;
     if (t.entity && (i = this.setEntity(t.entity, e)), t.mask && this.setMask(t.mask, e), t.interactive && (e.eventMode = t.interactive.eventMode || "static", e.cursor = t.interactive.cursor || "pointer", t.interactive.emit.forEach((s) => e.on(s, () => {
-      Zt.dispatch({
+      Kt.dispatch({
         type: s,
         view: e,
         entity: i
@@ -275,8 +275,8 @@ class T {
     e.anchor.set(r, o);
   }
   setRelativePosition(t, e) {
-    const i = l.instance.get(G), { width: s, height: r } = i.renderer.screen, o = t.x || 0, c = t.y || 0, a = s / 2 * o, _ = r / 2 * c;
-    e.position.set(a, _);
+    const i = l.instance.get(G), { width: s, height: r } = i.renderer.screen, o = t.x || 0, c = t.y || 0, a = s / 2 * o, g = r / 2 * c;
+    e.position.set(a, g);
   }
   setMask(t, e) {
     const { x: i, y: s, type: r } = t, o = new nt();
@@ -287,9 +287,9 @@ class T {
     o.endFill(), t.isDebug || (e.mask = o), e.addChild(o);
   }
   setEntity(t, e) {
-    const i = t.instance ? t.instance(e) : new Qt(Dt.uuid(), `Entity-${e.name}`), s = t.components || [];
+    const i = t.instance ? t.instance(e) : new kt(Lt.uuid(), `Entity-${e.name}`), s = t.components || [];
     this.setComponents(i, [e, ...s]);
-    const r = l.instance.get(Wt), o = l.instance.get(U);
+    const r = l.instance.get(Ft), o = l.instance.get(U);
     return r.addEntity(i), o.add(e, i), e.on("destroyed", () => {
       r.removeEntity(i.uuid);
     }), i;
@@ -302,13 +302,13 @@ class T {
     s.lineStyle(e, i, e).drawRect(-e, -e, t.width + e, t.height + e), s.pivot.x = t.width / 2, s.pivot.y = t.height / 2, t.addChild(s);
   }
 }
-class kt extends T {
+class te extends S {
   create(t) {
-    const e = new b();
+    const e = new x();
     return this.setCommonData(t, e), e;
   }
 }
-class Kt {
+class ee {
   constructor(t) {
     this._name = t, this.data = [], this.status = L.Pending, this._loaded = new Promise((e) => this._resolve = e);
   }
@@ -331,7 +331,7 @@ class M {
     this.list = /* @__PURE__ */ new Map();
   }
   add(t) {
-    const e = new Kt(t);
+    const e = new ee(t);
     this.list.set(t, e);
   }
   updateOnLoad(t, e) {
@@ -357,7 +357,7 @@ class M {
       return this.list.get(s.bundle);
   }
 }
-class te extends T {
+class ie extends S {
   create(t) {
     const i = l.instance.get(M).getAsset(t.asset);
     if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
@@ -365,19 +365,19 @@ class te extends T {
     return r.texture = s, r.tint = t.tint ? t.tint : 16777215, this.setCommonData(t, r), this.setAnchor(t.anchor, r), r;
   }
 }
-class ee extends T {
+class se extends S {
   create(t) {
     const e = new Y(t.text, t.bitmapTextStyle);
     return this.setCommonData(t, e), this.setAnchor(t.anchor, e), e.tint = t.tint ? t.tint : 16777215, e;
   }
 }
-class ie extends T {
+class ne extends S {
   create(t) {
-    const e = new $t(t.textStyle || {}), i = new J(t.text, e);
+    const e = new Gt(t.textStyle || {}), i = new J(t.text, e);
     return this.setCommonData(t, i), this.setAnchor(t.anchor, i), i;
   }
 }
-class se {
+class re {
   constructor(t, e) {
     this._name = t, this._spineController = e, this._timescaleModifier = 0, this._timeScaleMiltiplier = 1, this._chain = [], this._curent = null, this._listener = null, this._originalTimeScale = 0;
   }
@@ -461,7 +461,7 @@ class j {
     return Array.from(this._chains.values());
   }
   create(t) {
-    const e = new se(t, this);
+    const e = new re(t, this);
     return this._chains.set(t, e), e;
   }
   get(t) {
@@ -543,7 +543,7 @@ class ot {
     t.skeleton.skin = i, t.skeleton.setSlotsToSetupPose(), t.state.apply(t.skeleton);
   }
 }
-class ne extends T {
+class oe extends S {
   create(t) {
     const e = l.instance.get(M), i = l.instance.get(j), s = e.getAsset(t.asset);
     if (!s) throw new Error(`Asset ${t.asset.toString()} not found!`);
@@ -558,7 +558,7 @@ class ne extends T {
     return t.skin && o.skeleton.data.findSkin(t.skin) && (o.skeleton.setSkinByName(t.skin), o.skeleton.setSlotsToSetupPose()), this.setCommonData(t, o), o;
   }
 }
-class re extends T {
+class ae extends S {
   create(t) {
     const i = l.instance.get(M).getAsset(t.asset);
     if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
@@ -581,10 +581,10 @@ class H {
     if (!i) throw new Error(`Unsupported type: ${t.type}`);
     if (e ? this.loadLazyAsset(t, e) : !1) return;
     const r = i.create(t);
-    return e == null || e.addChild(r), Jt.dispatch(r), t.children && this.createChildren(t.children, r), r;
+    return e == null || e.addChild(r), Zt.dispatch(r), t.children && this.createChildren(t.children, r), r;
   }
   setupBehaviours() {
-    this._behaviours.set(b, new kt()), this._behaviours.set(X, new te()), this._behaviours.set(Y, new ee()), this._behaviours.set(J, new ie()), this._behaviours.set(Z, new ne()), this._behaviours.set(Q, new re());
+    this._behaviours.set(x, new te()), this._behaviours.set(X, new ie()), this._behaviours.set(Y, new se()), this._behaviours.set(J, new ne()), this._behaviours.set(Z, new oe()), this._behaviours.set(Q, new ae());
   }
   createChildren(t, e) {
     for (let i = 0; i < t.length; i++) {
@@ -604,7 +604,7 @@ class H {
     return i;
   }
 }
-class x {
+class b {
   constructor(t) {
     t && (this._config = t);
   }
@@ -889,7 +889,7 @@ class x {
   addChild(t) {
     var i;
     this.checkConfig(), this.checkChildren();
-    const e = new x();
+    const e = new b();
     return t(e), (i = this._config.children) == null || i.push(e.create()), this;
   }
   /**
@@ -906,7 +906,7 @@ class x {
     const i = (r = this._config.children) == null ? void 0 : r.find((o) => o.name === t);
     if (!i)
       throw new Error(`Child with name ${t} not found`);
-    const s = new x(i);
+    const s = new b(i);
     return e(s), this;
   }
   /**
@@ -922,7 +922,7 @@ class x {
     const i = this.deepSearchChild(t);
     if (!i)
       throw new Error(`Child with name ${t} not found`);
-    const s = new x(i);
+    const s = new b(i);
     return e(s), this;
   }
   /**
@@ -1200,9 +1200,9 @@ class x {
     return t.type === Q;
   }
 }
-class qe {
+class Ne {
   constructor(t) {
-    this._builder = new x(t);
+    this._builder = new b(t);
   }
   /**
    * @description
@@ -1214,7 +1214,7 @@ class qe {
     return this.setup(this._builder), this._builder.create();
   }
 }
-class oe {
+class ce {
   constructor(t, e, i) {
     this._factory = t, this._size = e, this._dynamic = i, this._pool = [], this.intitialize();
   }
@@ -1240,7 +1240,7 @@ class oe {
     this._factory.reset(t), this._pool.push(t);
   }
 }
-class $e {
+class Ge {
   createFromConfig(t) {
     return this.config = t, l.instance.get(H).create(t);
   }
@@ -1250,7 +1250,7 @@ class at {
     this._pools = /* @__PURE__ */ new Map();
   }
   create(t, e, i, s) {
-    const r = new e(), o = new oe(r, i, s);
+    const r = new e(), o = new ce(r, i, s);
     return this._pools.set(t, o), o;
   }
   get(t) {
@@ -1330,7 +1330,7 @@ class E extends F {
     return new E();
   }
 }
-const ae = 1192092896e-16;
+const he = 1192092896e-16;
 class h extends F {
   constructor(t) {
     super(), this.MAX_VALUE = 2, this._elapsed = 0, this._firstTick = !1, this._easeList = [], this._speed = 1, this._repeatForever = !1, this._repeatMethod = !1, this._speedMethod = !1, t !== void 0 && !Number.isNaN(t) && this.initWithDuration(t);
@@ -1339,7 +1339,7 @@ class h extends F {
     return this._elapsed;
   }
   initWithDuration(t) {
-    return this._duration = t === 0 ? ae : t, this._elapsed = 0, this._firstTick = !0, !0;
+    return this._duration = t === 0 ? he : t, this._elapsed = 0, this._firstTick = !0, !0;
   }
   isDone() {
     return this._elapsed >= this._duration;
@@ -1422,7 +1422,7 @@ class k extends E {
     return t.initWithFunction(this._function, this._selectorTarget, this._data), t;
   }
 }
-const w = class w extends h {
+const A = class A extends h {
   constructor(t) {
     super(), this._actions = [], this._split = 0, this._last = 0, this._reversed = !1;
     const e = t instanceof Array ? t : arguments;
@@ -1432,7 +1432,7 @@ const w = class w extends h {
     if (i >= 0) {
       let s = e[0], r;
       for (let o = 1; o < i; o++)
-        e[o] && (r = s, s = w._actionOneTwo(r, e[o]));
+        e[o] && (r = s, s = A._actionOneTwo(r, e[o]));
       this.initWithTwoActions(s, e[i]);
     }
   }
@@ -1445,7 +1445,7 @@ const w = class w extends h {
     return this.initWithDuration(r), this._actions[0] = t, this._actions[1] = e, !0;
   }
   clone() {
-    const t = new w();
+    const t = new A();
     return this.cloneDecoration(t), t.initWithTwoActions(this._actions[0].clone(), this._actions[1].clone()), t;
   }
   startWithTarget(t) {
@@ -1461,15 +1461,15 @@ const w = class w extends h {
     t = this.computeEaseTime(t), t < s ? (e = s !== 0 ? t / s : 1, i === 0 && o === 1 && this._reversed && (r[1].update(0), r[1].stop())) : (i = 1, e = s === 1 ? 1 : (t - s) / (1 - s), o === -1 && (r[0].startWithTarget(this.target), r[0].update(1), r[0].stop()), o === 0 && (r[0].update(1), r[0].stop())), c = r[i], !(o === i && c.isDone()) && (o !== i && c.startWithTarget(this.target), e *= c._timesForRepeat, c.update(e > 1 ? e % 1 : e), this._last = i);
   }
   reverse() {
-    const t = w._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
+    const t = A._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t._reversed = !0, t;
   }
 };
-w._actionOneTwo = function(t, e) {
-  const i = new w();
+A._actionOneTwo = function(t, e) {
+  const i = new A();
   return i.initWithTwoActions(t, e), i;
 };
-let I = w;
+let I = A;
 function N(n) {
   const t = n instanceof Array ? n : arguments;
   if (t.length === 1)
@@ -1483,7 +1483,7 @@ function N(n) {
   }
   return i;
 }
-class O extends h {
+class P extends h {
   constructor(t, e) {
     super(), this._times = 0, this._total = 0, this._nextDt = 0, this._actionInstant = !1, this._innerAction = null, e !== void 0 && this.initWithAction(t, e);
   }
@@ -1492,7 +1492,7 @@ class O extends h {
     return this.initWithDuration(i) ? (this._times = e, this._innerAction = t, t instanceof E && (this._actionInstant = !0, this._times -= 1), this._total = 0, !0) : !1;
   }
   clone() {
-    const t = new O();
+    const t = new P();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone(), this._times), t;
   }
   startWithTarget(t) {
@@ -1516,7 +1516,7 @@ class O extends h {
     return this._total === this._times;
   }
   reverse() {
-    const t = new O(this._innerAction.reverse(), this._times);
+    const t = new P(this._innerAction.reverse(), this._times);
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -1526,7 +1526,7 @@ class O extends h {
     return this._innerAction;
   }
 }
-class P extends h {
+class O extends h {
   constructor(t) {
     super(), this._innerAction = null, t && this.initWithAction(t);
   }
@@ -1534,7 +1534,7 @@ class P extends h {
     return t ? (this._innerAction = t, !0) : !1;
   }
   clone() {
-    const t = new P();
+    const t = new O();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone()), t;
   }
   startWithTarget(t) {
@@ -1548,7 +1548,7 @@ class P extends h {
     return !1;
   }
   reverse() {
-    const t = new P(this._innerAction.reverse());
+    const t = new O(this._innerAction.reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -1647,12 +1647,12 @@ class K extends h {
     this._other.stop(), m.prototype.stop.call(this);
   }
 }
-class ce {
+class le {
   constructor() {
     this.actions = [], this.target = null, this.actionIndex = 0, this.currentAction = null, this.paused = !1, this.lock = !1;
   }
 }
-class he {
+class ue {
   constructor() {
     this._hashTargets = /* @__PURE__ */ new Map(), this._arrayTargets = [], this._elementPool = [];
   }
@@ -1793,7 +1793,7 @@ class he {
   }
   _getElement(t, e) {
     let i = this._elementPool.pop();
-    return i || (i = new ce()), i.target = t, i.paused = !!e, i;
+    return i || (i = new le()), i.target = t, i.paused = !!e, i;
   }
   _putElement(t) {
     t.actions.length = 0, t.actionIndex = 0, t.currentAction = null, t.paused = !1, t.target = null, t.lock = !1, this._elementPool.push(t);
@@ -1818,7 +1818,7 @@ class he {
 }
 const W = class W {
   constructor() {
-    this.actionMgr = new he();
+    this.actionMgr = new ue();
   }
   static get instance() {
     return this._instance || (this._instance = new W()), this._instance;
@@ -1832,68 +1832,68 @@ const W = class W {
 };
 W._instance = null;
 let p = W;
-const le = () => 0, ue = (n) => n, gt = (n) => n * n, _t = (n) => n * (2 - n), fe = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), pt = (n) => n * n * n, mt = (n) => --n * n * n + 1, de = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), At = (n) => n * n * n * n, wt = (n) => 1 - --n * n * n * n, ge = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), yt = (n) => n * n * n * n * n, vt = (n) => --n * n * n * n * n + 1, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), Ct = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), Tt = (n) => Math.sin(n * Math.PI / 2), pe = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), St = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), xt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), me = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), bt = (n) => 1 - Math.sqrt(1 - n * n), Mt = (n) => Math.sqrt(1 - --n * n), Ae = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), It = (n) => {
+const fe = () => 0, de = (n) => n, _t = (n) => n * n, pt = (n) => n * (2 - n), ge = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), mt = (n) => n * n * n, wt = (n) => --n * n * n + 1, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), At = (n) => n * n * n * n, yt = (n) => 1 - --n * n * n * n, pe = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), vt = (n) => n * n * n * n * n, Ct = (n) => --n * n * n * n * n + 1, me = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), St = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), Tt = (n) => Math.sin(n * Math.PI / 2), we = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), bt = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), xt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), Ae = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), Mt = (n) => 1 - Math.sqrt(1 - n * n), It = (n) => Math.sqrt(1 - --n * n), ye = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), Et = (n) => {
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), -(e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)));
-}, Et = (n) => {
+}, Bt = (n) => {
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), e * Math.pow(2, -10 * n) * Math.sin((n - t) * (2 * Math.PI) / i) + 1);
-}, we = (n) => {
+}, ve = (n) => {
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), n *= 2, n < 1 ? -0.5 * (e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)) : e * Math.pow(2, -10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i) * 0.5 + 1);
-}, Bt = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Ot = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, ye = (n) => {
+}, Pt = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Ot = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, Ce = (n) => {
   const t = 2.5949095;
   return n *= 2, n < 1 ? 0.5 * (n * n * ((t + 1) * n - t)) : 0.5 * ((n -= 2) * n * ((t + 1) * n + t) + 2);
-}, tt = (n) => 1 - R(1 - n), R = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, ve = (n) => n < 0.5 ? tt(n * 2) * 0.5 : R(n * 2 - 1) * 0.5 + 0.5, Ce = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), Te = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), g = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, Se = g(gt, _t), xe = g(pt, mt), be = g(At, wt), Me = g(yt, vt), Ie = g(Ct, Tt), Ee = g(St, xt), Be = g(bt, Mt), Oe = g(It, Et), Pe = g(Bt, Ot), De = g(tt, R), ht = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, tt = (n) => 1 - R(1 - n), R = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, Se = (n) => n < 0.5 ? tt(n * 2) * 0.5 : R(n * 2 - 1) * 0.5 + 0.5, Te = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), be = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), _ = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, xe = _(_t, pt), Me = _(mt, wt), Ie = _(At, yt), Ee = _(vt, Ct), Be = _(St, Tt), Pe = _(bt, xt), Oe = _(Mt, It), De = _(Et, Bt), We = _(Pt, Ot), Le = _(tt, R), ht = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  backIn: Bt,
-  backInOut: ye,
+  backIn: Pt,
+  backInOut: Ce,
   backOut: Ot,
-  backOutIn: Pe,
+  backOutIn: We,
   bounceIn: tt,
-  bounceInOut: ve,
+  bounceInOut: Se,
   bounceOut: R,
-  bounceOutIn: De,
-  circIn: bt,
-  circInOut: Ae,
-  circOut: Mt,
-  circOutIn: Be,
-  constant: le,
-  cubicIn: pt,
-  cubicInOut: de,
-  cubicOut: mt,
-  cubicOutIn: xe,
-  elasticIn: It,
-  elasticInOut: we,
-  elasticOut: Et,
-  elasticOutIn: Oe,
-  expoIn: St,
-  expoInOut: me,
+  bounceOutIn: Le,
+  circIn: Mt,
+  circInOut: ye,
+  circOut: It,
+  circOutIn: Oe,
+  constant: fe,
+  cubicIn: mt,
+  cubicInOut: _e,
+  cubicOut: wt,
+  cubicOutIn: Me,
+  elasticIn: Et,
+  elasticInOut: ve,
+  elasticOut: Bt,
+  elasticOutIn: De,
+  expoIn: bt,
+  expoInOut: Ae,
   expoOut: xt,
-  expoOutIn: Ee,
-  fade: Te,
-  linear: ue,
-  quadIn: gt,
-  quadInOut: fe,
-  quadOut: _t,
-  quadOutIn: Se,
+  expoOutIn: Pe,
+  fade: be,
+  linear: de,
+  quadIn: _t,
+  quadInOut: ge,
+  quadOut: pt,
+  quadOutIn: xe,
   quartIn: At,
-  quartInOut: ge,
-  quartOut: wt,
-  quartOutIn: be,
-  quintIn: yt,
-  quintInOut: _e,
-  quintOut: vt,
-  quintOutIn: Me,
-  sineIn: Ct,
-  sineInOut: pe,
+  quartInOut: pe,
+  quartOut: yt,
+  quartOutIn: Ie,
+  quintIn: vt,
+  quintInOut: me,
+  quintOut: Ct,
+  quintOutIn: Ee,
+  sineIn: St,
+  sineInOut: we,
   sineOut: Tt,
-  sineOutIn: Ie,
-  smooth: Ce
-}, Symbol.toStringTag, { value: "Module" })), We = (n) => {
+  sineOutIn: Be,
+  smooth: Te
+}, Symbol.toStringTag, { value: "Module" })), Fe = (n) => {
   const t = n.charAt(0);
   if (/[A-Z]/.test(t)) {
     n = n.replace(t, t.toLowerCase());
@@ -1936,7 +1936,7 @@ class D extends h {
   constructor(t, e, i) {
     if (super(), i == null)
       i = /* @__PURE__ */ Object.create(null);
-    else if (i.easing && typeof i.easing == "string" && (i.easing = We(i.easing)), i.progress || (i.progress = this.progress), i.easing && typeof i.easing == "string") {
+    else if (i.easing && typeof i.easing == "string" && (i.easing = Fe(i.easing)), i.progress || (i.progress = this.progress), i.easing && typeof i.easing == "string") {
       const s = i.easing;
       i.easing = ht[s];
     }
@@ -1982,12 +1982,12 @@ class D extends h {
     s.easing && (r = s.easing(t));
     const o = s.progress;
     for (const c in i) {
-      const a = i[c], _ = a.easing ? a.easing(t) : r, u = a.progress ? a.progress : o, d = a.start, S = a.end;
+      const a = i[c], g = a.easing ? a.easing(t) : r, u = a.progress ? a.progress : o, d = a.start, T = a.end;
       if (typeof d == "number")
-        a.current = u(d, S, a.current, _);
+        a.current = u(d, T, a.current, g);
       else if (typeof d == "object")
-        for (const A in d)
-          a.current[A] = u(d[A], S[A], a.current[A], _);
+        for (const w in d)
+          a.current[w] = u(d[w], T[w], a.current[w], g);
       e[c] = a.current;
     }
     s.onUpdate && s.onUpdate(this.target, t), t === 1 && s.onComplete && s.onComplete(this.target);
@@ -2078,14 +2078,14 @@ const f = class f {
     const i = this._actions;
     let s;
     e instanceof f ? s = e._union() : s = i.pop();
-    const r = new O(s, t);
+    const r = new P(s, t);
     return i.push(r), this;
   }
   repeatForever(t) {
     const e = this._actions;
     let i;
     t instanceof f ? i = t._union() : i = e.pop();
-    const s = new P(i);
+    const s = new O(i);
     return e.push(s), this;
   }
   reverseTime(t) {
@@ -2130,7 +2130,7 @@ const f = class f {
 };
 f._tmp_args = [];
 let lt = f;
-class Ne {
+class Ue {
   constructor(t) {
     this._viewBuilder = t;
   }
@@ -2200,7 +2200,52 @@ class ft {
     this._gameSpeed = t, this._lifecycle.setSpeedMultiplier(this._gameSpeed), this._spineController.multyplyTimeScaleAll(this._gameSpeed);
   }
 }
-class Ge extends Lt {
+class dt {
+  constructor(t) {
+    this._viewBuilder = t, this._prefabs = /* @__PURE__ */ new Map();
+  }
+  /**
+   * Регистрирует префаб в сервисе.
+   * 
+   * @param {PrefabTemplate<any>} template - Префаб для регистрации.
+   */
+  register(t) {
+    this._prefabs.set(t, t);
+  }
+  /**
+   * Заменяет зарегистрированный префаб на новый.
+   * 
+   * @param {PrefabTemplate<any>} template - Префаб для замены.
+   * @param {PrefabTemplate<any>} instance - Новый префаб.
+   */
+  replace(t, e) {
+    this._prefabs.set(t, e);
+  }
+  /**
+   * Получает зарегистрированный префаб.
+   * 
+   * @param {PrefabTemplate<any>} template - Префаб для получения.
+   * @returns {PrefabTemplate<any>} Зарегистрированный префаб.
+   */
+  get(t) {
+    const e = this._prefabs.get(t);
+    if (!e)
+      throw new Error(`Prefab ${t.name} not found`);
+    return e;
+  }
+  /**
+   * Создает вьюху на основе зарегистрированного префаба.
+   * 
+   * @param {View} instance - Префаб для создания.
+   * @param {Container} parent - Родительский контейнер для вьюхи.
+   * @returns {Container} Созданная вьюха.
+   */
+  create(t, e) {
+    const i = t.create();
+    return this._viewBuilder.create(i, e);
+  }
+}
+class je extends Rt {
   connectRender(t, e) {
     this.registerGlobalServices([{ provide: G, useFactory: () => t }]), this.appendToDOM(t, e), this.connectDebugger(t);
   }
@@ -2221,54 +2266,56 @@ class Ge extends Lt {
     globalThis.__PIXI_APP__ = t;
   }
   initializeDependencies(t) {
-    const e = new M(), i = new H(e), s = new U(), r = new rt(e), o = new B(), c = new $(), a = new j(), _ = new ot(), u = new at(), d = new ut(t, i, o), S = l.instance.get(it), A = l.instance.get(Ft), v = new ft(S, A, a);
+    const e = new M(), i = new H(e), s = new dt(i), r = new U(), o = new rt(e), c = new B(), a = new $(), g = new j(), u = new ot(), d = new at(), T = new ut(t, i, c), w = l.instance.get(it), v = l.instance.get(zt), Dt = new ft(w, v, g);
     this.registerGlobalServices([
       { provide: M, useFactory: () => e },
       { provide: H, useFactory: () => i },
-      { provide: U, useFactory: () => s },
-      { provide: rt, useFactory: () => r },
-      { provide: B, useFactory: () => o },
-      { provide: $, useFactory: () => c },
-      { provide: j, useFactory: () => a },
-      { provide: ot, useFactory: () => _ },
-      { provide: at, useFactory: () => u },
-      { provide: ut, useFactory: () => d },
-      { provide: ft, useFactory: () => v }
+      { provide: dt, useFactory: () => s },
+      { provide: U, useFactory: () => r },
+      { provide: rt, useFactory: () => o },
+      { provide: B, useFactory: () => c },
+      { provide: $, useFactory: () => a },
+      { provide: j, useFactory: () => g },
+      { provide: ot, useFactory: () => u },
+      { provide: at, useFactory: () => d },
+      { provide: ut, useFactory: () => T },
+      { provide: ft, useFactory: () => Dt }
     ]);
   }
   createStage(t) {
-    const e = l.instance.get(B), i = new Nt.Stage();
+    const e = l.instance.get(B), i = new Ut.Stage();
     i.sortableChildren = !0, t.stage = i, t.stage.x = t.view.width / 2, t.stage.y = t.view.height / 2, e.setStage(i), e.sortAll();
   }
   createRootView(t, e) {
-    const i = new b();
+    const i = new x();
     i.name = t, e.stage.addChild(i);
   }
 }
 export {
-  Kt as Asset,
+  ee as Asset,
   L as AssetStatus,
   M as AssetsManager,
-  Ge as EmpressPixiCore,
+  je as EmpressPixiCore,
   ft as FlowController,
   B as Layers,
   rt as Loader,
-  x as NodeBuilder,
-  oe as ObjectPool,
-  Zt as OnElementInteractSignal,
-  Jt as OnViewCreatedSignal,
+  b as NodeBuilder,
+  ce as ObjectPool,
+  Kt as OnElementInteractSignal,
+  Zt as OnViewCreatedSignal,
   $ as ParticleEmitter,
-  Qt as PixiEntity,
-  $e as PixiItemPoolFactory,
+  kt as PixiEntity,
+  Ge as PixiItemPoolFactory,
   at as PoolsController,
-  Ne as Scene,
+  dt as PrefabService,
+  Ue as Scene,
   ut as SceneController,
   j as SpineController,
   ot as SpineUtils,
   lt as Tween,
   D as TweenAction,
   p as TweenSystem,
-  qe as View,
+  Ne as View,
   H as ViewBuilder,
   U as ViewEntity
 };
