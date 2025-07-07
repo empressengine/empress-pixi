@@ -403,6 +403,10 @@ class re {
   async play() {
     for (; this._chain.length > 0; ) {
       const t = this._curent = this._chain[0], { spine: e, name: i, deferredPromise: s, options: r } = t, { loopCount: o, timeScale: c } = r;
+      if (!e.state) {
+        s.resolve(null);
+        continue;
+      }
       o === -1 && this.add(e, i, r), e.state.timeScale = c || 0, this._originalTimeScale = e.state.timeScale, c && (e.state.timeScale = (c + this._timescaleModifier) * this._timeScaleMiltiplier), this._listener && e.state.removeListener(this._listener), this.clear(e), this._listener = this.setListener(r, s), e.state.addListener(this._listener), e.state.setAnimation(0, i, !1), await s.promise, this._chain.shift();
     }
     this._spineController.remove(this._name);
