@@ -51,6 +51,11 @@ export class SpineChain implements ISpineChain {
             const { spine, name, deferredPromise, options } = chain;
             const { loopCount, timeScale } = options;
 
+            if(!spine.state) {
+                deferredPromise.resolve(null);
+                continue;
+            };
+
             if (loopCount === -1) {
                 this.add(spine, name, options);
             }
