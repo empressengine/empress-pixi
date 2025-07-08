@@ -1,9 +1,9 @@
-import { Signal as gt, Entity as Wt, ServiceContainer as l, Utils as Lt, EntityStorage as Ft, DeferredPromise as z, EmpressCore as Rt, LifeCycle as it, ExecutionController as zt } from "empress-core";
-import { BitmapFontData as qt, BitmapFont as st, Assets as q, Texture as $t, Spritesheet as Nt, Container as x, Application as G, Graphics as nt, Sprite as X, BitmapText as Y, TextStyle as Gt, Text as J, NineSlicePlane as Q } from "pixi.js";
-import * as Ut from "@pixi/layers";
+import { Signal as pt, Entity as Wt, ServiceContainer as l, Utils as Lt, EntityStorage as Ft, DeferredPromise as z, EmpressCore as Rt, LifeCycle as it, ExecutionController as zt } from "empress-core";
+import { BitmapFontData as qt, BitmapFont as st, Assets as q, Texture as $t, Spritesheet as Ut, Container as x, Application as N, Graphics as nt, Sprite as X, BitmapText as k, TextStyle as Nt, Text as Y, NineSlicePlane as J } from "pixi.js";
+import * as Gt from "@pixi/layers";
 import { Group as jt, Layer as Ht } from "@pixi/layers";
 import * as Vt from "@pixi/particle-emitter";
-import { Spine as Z } from "pixi-spine";
+import { Spine as Q } from "pixi-spine";
 class B {
   constructor() {
     this._groups = /* @__PURE__ */ new Map(), this._layers = /* @__PURE__ */ new Map();
@@ -54,7 +54,7 @@ class Xt {
       this._assetsManager.updateOnLoad(e, [{ name: o, asset: r[o], bundle: e }]);
   }
 }
-class Yt {
+class kt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -62,7 +62,7 @@ class Yt {
     this._assetsManager.updateOnLoad(e, [{ name: t, asset: i[t], bundle: e }]);
   }
 }
-class Jt {
+class Yt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -75,23 +75,23 @@ class Jt {
       space: " ",
       dash: "-",
       plus: "+"
-    }, c = r.data.frames, a = Object.keys(c).map((u, d) => {
+    }, c = r.data.frames, a = Object.keys(c).map((u, g) => {
       s.page.push({
-        id: d,
+        id: g,
         file: ""
       });
-      const w = (u.length > 1 ? o[u] : u).charCodeAt(0), v = r.textures[u];
+      const v = (u.length > 1 ? o[u] : u).charCodeAt(0), A = r.textures[u];
       return s.char.push({
-        id: w,
-        page: d,
+        id: v,
+        page: g,
         x: 0,
         y: 0,
-        width: v.width,
-        height: v.height,
+        width: A.width,
+        height: A.height,
         xoffset: 0,
         yoffset: 0,
-        xadvance: v.width
-      }), v;
+        xadvance: A.width
+      }), A;
     });
     s.common[0] = {
       lineHeight: a[0].height
@@ -99,11 +99,11 @@ class Jt {
       face: t,
       size: a[0].height
     };
-    const g = new st(s, a, !0);
-    st.available[t] = g;
+    const p = new st(s, a, !0);
+    st.available[t] = p;
   }
 }
-class Qt {
+class Jt {
   constructor(t) {
     this._assetsManager = t;
   }
@@ -116,8 +116,8 @@ class rt {
     this._assetsManager = t, this._dimension = "", this._behaviours = /* @__PURE__ */ new Map(), this.closestDimension = (e) => {
       const i = window.screen.height * window.devicePixelRatio, s = window.screen.width * window.devicePixelRatio, r = i > s ? i : s, o = e.map((u) => Math.abs(r - u.width));
       let c = o[0], a = 0;
-      return o.map((u, d) => {
-        u < c && (c = u, a = d);
+      return o.map((u, g) => {
+        u < c && (c = u, a = g);
       }), e[a].alias;
     };
   }
@@ -139,11 +139,11 @@ class rt {
   processBundle(t, e) {
     for (let i in e) {
       let s;
-      e[i].hasOwnProperty("spineData") ? s = this._behaviours.get("spine") : e[i] instanceof $t ? s = this._behaviours.get("texture") : e[i] instanceof Nt ? s = this._behaviours.get("spritesheet") : t === "fonts" && (s = this._behaviours.get("bitmap")), s && s.build(i, t, e);
+      e[i].hasOwnProperty("spineData") ? s = this._behaviours.get("spine") : e[i] instanceof $t ? s = this._behaviours.get("texture") : e[i] instanceof Ut ? s = this._behaviours.get("spritesheet") : t === "fonts" && (s = this._behaviours.get("bitmap")), s && s.build(i, t, e);
     }
   }
   setupBehaviours() {
-    this._behaviours.set("spritesheet", new Xt(this._assetsManager)), this._behaviours.set("texture", new Yt(this._assetsManager)), this._behaviours.set("bitmap", new Jt(this._assetsManager)), this._behaviours.set("spine", new Qt(this._assetsManager));
+    this._behaviours.set("spritesheet", new Xt(this._assetsManager)), this._behaviours.set("texture", new kt(this._assetsManager)), this._behaviours.set("bitmap", new Yt(this._assetsManager)), this._behaviours.set("spine", new Jt(this._assetsManager));
   }
   checkWebPSupport() {
     return new Promise((t) => {
@@ -208,9 +208,9 @@ class $ {
     });
   }
 }
-const Zt = new gt();
+const Qt = new pt();
 var L = /* @__PURE__ */ ((n) => (n.Pending = "Pending", n.Loaded = "Loaded", n))(L || {});
-class kt extends Wt {
+class Zt extends Wt {
   get active() {
     return this.getComponent(x).visible;
   }
@@ -219,7 +219,7 @@ class kt extends Wt {
     e.visible = t;
   }
 }
-class U {
+class G {
   constructor() {
     this._list = /* @__PURE__ */ new Map();
   }
@@ -251,8 +251,109 @@ class U {
     return i.getComponent(e);
   }
 }
-const Kt = new gt();
-class S {
+const Kt = new pt();
+class Ue {
+  static pointerCancel(t, e) {
+    return () => t.type === "pointercancel" && t.view.name === e;
+  }
+  static pointerDown(t, e) {
+    return () => t.type === "pointerdown" && t.view.name === e;
+  }
+  static pointerEnter(t, e) {
+    return () => t.type === "pointerenter" && t.view.name === e;
+  }
+  static pointerLeave(t, e) {
+    return () => t.type === "pointerleave" && t.view.name === e;
+  }
+  static pointerMove(t, e) {
+    return () => t.type === "pointermove" && t.view.name === e;
+  }
+  static globalPointerMove(t, e) {
+    return () => t.type === "globalpointermove" && t.view.name === e;
+  }
+  static pointerOut(t, e) {
+    return () => t.type === "pointerout" && t.view.name === e;
+  }
+  static pointerOver(t, e) {
+    return () => t.type === "pointerover" && t.view.name === e;
+  }
+  static pointerTap(t, e) {
+    return () => t.type === "pointertap" && t.view.name === e;
+  }
+  static pointerUp(t, e) {
+    return () => t.type === "pointerup" && t.view.name === e;
+  }
+  static pointerUpOutside(t, e) {
+    return () => t.type === "pointerupoutside" && t.view.name === e;
+  }
+  static mouseDown(t, e) {
+    return () => t.type === "mousedown" && t.view.name === e;
+  }
+  static mouseEnter(t, e) {
+    return () => t.type === "mouseenter" && t.view.name === e;
+  }
+  static mouseLeave(t, e) {
+    return () => t.type === "mouseleave" && t.view.name === e;
+  }
+  static mouseMove(t, e) {
+    return () => t.type === "mousemove" && t.view.name === e;
+  }
+  static globalMouseMove(t, e) {
+    return () => t.type === "globalmousemove" && t.view.name === e;
+  }
+  static mouseOut(t, e) {
+    return () => t.type === "mouseout" && t.view.name === e;
+  }
+  static mouseOver(t, e) {
+    return () => t.type === "mouseover" && t.view.name === e;
+  }
+  static mouseUp(t, e) {
+    return () => t.type === "mouseup" && t.view.name === e;
+  }
+  static mouseUpOutside(t, e) {
+    return () => t.type === "mouseupoutside" && t.view.name === e;
+  }
+  static click(t, e) {
+    return () => t.type === "click" && t.view.name === e;
+  }
+  static touchCancel(t, e) {
+    return () => t.type === "touchcancel" && t.view.name === e;
+  }
+  static touchEnd(t, e) {
+    return () => t.type === "touchend" && t.view.name === e;
+  }
+  static touchEndOutside(t, e) {
+    return () => t.type === "touchendoutside" && t.view.name === e;
+  }
+  static touchMove(t, e) {
+    return () => t.type === "touchmove" && t.view.name === e;
+  }
+  static globalTouchMove(t, e) {
+    return () => t.type === "globaltouchmove" && t.view.name === e;
+  }
+  static touchStart(t, e) {
+    return () => t.type === "touchstart" && t.view.name === e;
+  }
+  static tap(t, e) {
+    return () => t.type === "tap" && t.view.name === e;
+  }
+  static wheel(t, e) {
+    return () => t.type === "wheel" && t.view.name === e;
+  }
+  static rightClick(t, e) {
+    return () => t.type === "rightclick" && t.view.name === e;
+  }
+  static rightDown(t, e) {
+    return () => t.type === "rightdown" && t.view.name === e;
+  }
+  static rightUp(t, e) {
+    return () => t.type === "rightup" && t.view.name === e;
+  }
+  static rightUpOutside(t, e) {
+    return () => t.type === "rightupoutside" && t.view.name === e;
+  }
+}
+class T {
   setCommonData(t, e) {
     if (e.name = t.name, e.alpha = t.alpha === void 0 ? 1 : t.alpha, e.angle = t.angle || 0, e.rotation = t.rotation || 0, e.zIndex = t.zIndex || 0, e.zOrder = t.zOrder || 0, e.visible = t.visible !== void 0 ? t.visible : !0, e.sortableChildren = !!t.sortableChildren, t.position && (e.position = { x: t.position.x || 0, y: t.position.y || 0 }), t.relativePosition && this.setRelativePosition(t.relativePosition, e), t.scale && (e.scale = { x: t.scale.x || 1, y: t.scale.y || 1 }), t.pivot && (e.pivot = { x: t.pivot.x || 0, y: t.pivot.y || 0 }), t.width && (e.width = t.width), t.height && (e.height = t.height), t.hitArea && (e.hitArea = t.hitArea), t.parentGroup) {
       const s = l.instance.get(B);
@@ -275,8 +376,8 @@ class S {
     e.anchor.set(r, o);
   }
   setRelativePosition(t, e) {
-    const i = l.instance.get(G), { width: s, height: r } = i.renderer.screen, o = t.x || 0, c = t.y || 0, a = s / 2 * o, g = r / 2 * c;
-    e.position.set(a, g);
+    const i = l.instance.get(N), { width: s, height: r } = i.renderer.screen, o = t.x || 0, c = t.y || 0, a = s / 2 * o, p = r / 2 * c;
+    e.position.set(a, p);
   }
   setMask(t, e) {
     const { x: i, y: s, type: r } = t, o = new nt();
@@ -287,9 +388,9 @@ class S {
     o.endFill(), t.isDebug || (e.mask = o), e.addChild(o);
   }
   setEntity(t, e) {
-    const i = t.instance ? t.instance(e) : new kt(Lt.uuid(), `Entity-${e.name}`), s = t.components || [];
+    const i = t.instance ? t.instance(e) : new Zt(Lt.uuid(), `Entity-${e.name}`), s = t.components || [];
     this.setComponents(i, [e, ...s]);
-    const r = l.instance.get(Ft), o = l.instance.get(U);
+    const r = l.instance.get(Ft), o = l.instance.get(G);
     return r.addEntity(i), o.add(e, i), e.on("destroyed", () => {
       r.removeEntity(i.uuid);
     }), i;
@@ -302,7 +403,7 @@ class S {
     s.lineStyle(e, i, e).drawRect(-e, -e, t.width + e, t.height + e), s.pivot.x = t.width / 2, s.pivot.y = t.height / 2, t.addChild(s);
   }
 }
-class te extends S {
+class te extends T {
   create(t) {
     const e = new x();
     return this.setCommonData(t, e), e;
@@ -357,7 +458,7 @@ class M {
       return this.list.get(s.bundle);
   }
 }
-class ie extends S {
+class ie extends T {
   create(t) {
     const i = l.instance.get(M).getAsset(t.asset);
     if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
@@ -365,15 +466,15 @@ class ie extends S {
     return r.texture = s, r.tint = t.tint ? t.tint : 16777215, this.setCommonData(t, r), this.setAnchor(t.anchor, r), r;
   }
 }
-class se extends S {
+class se extends T {
   create(t) {
-    const e = new Y(t.text, t.bitmapTextStyle);
+    const e = new k(t.text, t.bitmapTextStyle);
     return this.setCommonData(t, e), this.setAnchor(t.anchor, e), e.tint = t.tint ? t.tint : 16777215, e;
   }
 }
-class ne extends S {
+class ne extends T {
   create(t) {
-    const e = new Gt(t.textStyle || {}), i = new J(t.text, e);
+    const e = new Nt(t.textStyle || {}), i = new Y(t.text, e);
     return this.setCommonData(t, i), this.setAnchor(t.anchor, i), i;
   }
 }
@@ -547,11 +648,11 @@ class ot {
     t.skeleton.skin = i, t.skeleton.setSlotsToSetupPose(), t.state.apply(t.skeleton);
   }
 }
-class oe extends S {
+class oe extends T {
   create(t) {
     const e = l.instance.get(M), i = l.instance.get(j), s = e.getAsset(t.asset);
     if (!s) throw new Error(`Asset ${t.asset.toString()} not found!`);
-    const r = s.asset, o = new Z(r);
+    const r = s.asset, o = new Q(r);
     if (t.initialAnimation && o.state.hasAnimation(t.initialAnimation)) {
       const c = `${t.key || ""}:${t.name}`;
       i.create(c).add(o, t.initialAnimation, {
@@ -562,11 +663,11 @@ class oe extends S {
     return t.skin && o.skeleton.data.findSkin(t.skin) && (o.skeleton.setSkinByName(t.skin), o.skeleton.setSlotsToSetupPose()), this.setCommonData(t, o), o;
   }
 }
-class ae extends S {
+class ae extends T {
   create(t) {
     const i = l.instance.get(M).getAsset(t.asset);
     if (!i) throw new Error(`Asset ${t.asset.toString()} not found!`);
-    const s = i.asset, r = new Q(
+    const s = i.asset, r = new J(
       s,
       t.leftWidth,
       t.topHeight,
@@ -585,10 +686,10 @@ class H {
     if (!i) throw new Error(`Unsupported type: ${t.type}`);
     if (e ? this.loadLazyAsset(t, e) : !1) return;
     const r = i.create(t);
-    return e == null || e.addChild(r), Zt.dispatch(r), t.children && this.createChildren(t.children, r), r;
+    return e == null || e.addChild(r), Qt.dispatch(r), t.children && this.createChildren(t.children, r), r;
   }
   setupBehaviours() {
-    this._behaviours.set(x, new te()), this._behaviours.set(X, new ie()), this._behaviours.set(Y, new se()), this._behaviours.set(J, new ne()), this._behaviours.set(Z, new oe()), this._behaviours.set(Q, new ae());
+    this._behaviours.set(x, new te()), this._behaviours.set(X, new ie()), this._behaviours.set(k, new se()), this._behaviours.set(Y, new ne()), this._behaviours.set(Q, new oe()), this._behaviours.set(J, new ae());
   }
   createChildren(t, e) {
     for (let i = 0; i < t.length; i++) {
@@ -1192,16 +1293,16 @@ class b {
     return t.type === X;
   }
   isText(t) {
-    return t.type === J;
-  }
-  isBitmapText(t) {
     return t.type === Y;
   }
+  isBitmapText(t) {
+    return t.type === k;
+  }
   isSpine(t) {
-    return t.type === Z;
+    return t.type === Q;
   }
   isNineSlicePlane(t) {
-    return t.type === Q;
+    return t.type === J;
   }
 }
 class Ne {
@@ -1402,7 +1503,7 @@ class h extends F {
     return t;
   }
 }
-class k extends E {
+class Z extends E {
   constructor(t, e, i) {
     super(), this._selectorTarget = null, this._function = null, this._data = null, this.initWithFunction(t, e, i);
   }
@@ -1422,11 +1523,11 @@ class k extends E {
     t !== this._selectorTarget && (this._selectorTarget && (this._selectorTarget = null), this._selectorTarget = t);
   }
   clone() {
-    const t = new k();
+    const t = new Z();
     return t.initWithFunction(this._function, this._selectorTarget, this._data), t;
   }
 }
-const A = class A extends h {
+const w = class w extends h {
   constructor(t) {
     super(), this._actions = [], this._split = 0, this._last = 0, this._reversed = !1;
     const e = t instanceof Array ? t : arguments;
@@ -1436,7 +1537,7 @@ const A = class A extends h {
     if (i >= 0) {
       let s = e[0], r;
       for (let o = 1; o < i; o++)
-        e[o] && (r = s, s = A._actionOneTwo(r, e[o]));
+        e[o] && (r = s, s = w._actionOneTwo(r, e[o]));
       this.initWithTwoActions(s, e[i]);
     }
   }
@@ -1449,7 +1550,7 @@ const A = class A extends h {
     return this.initWithDuration(r), this._actions[0] = t, this._actions[1] = e, !0;
   }
   clone() {
-    const t = new A();
+    const t = new w();
     return this.cloneDecoration(t), t.initWithTwoActions(this._actions[0].clone(), this._actions[1].clone()), t;
   }
   startWithTarget(t) {
@@ -1465,16 +1566,16 @@ const A = class A extends h {
     t = this.computeEaseTime(t), t < s ? (e = s !== 0 ? t / s : 1, i === 0 && o === 1 && this._reversed && (r[1].update(0), r[1].stop())) : (i = 1, e = s === 1 ? 1 : (t - s) / (1 - s), o === -1 && (r[0].startWithTarget(this.target), r[0].update(1), r[0].stop()), o === 0 && (r[0].update(1), r[0].stop())), c = r[i], !(o === i && c.isDone()) && (o !== i && c.startWithTarget(this.target), e *= c._timesForRepeat, c.update(e > 1 ? e % 1 : e), this._last = i);
   }
   reverse() {
-    const t = A._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
+    const t = w._actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t._reversed = !0, t;
   }
 };
-A._actionOneTwo = function(t, e) {
-  const i = new A();
+w._actionOneTwo = function(t, e) {
+  const i = new w();
   return i.initWithTwoActions(t, e), i;
 };
-let I = A;
-function N(n) {
+let I = w;
+function U(n) {
   const t = n instanceof Array ? n : arguments;
   if (t.length === 1)
     return t[0];
@@ -1487,7 +1588,7 @@ function N(n) {
   }
   return i;
 }
-class P extends h {
+class O extends h {
   constructor(t, e) {
     super(), this._times = 0, this._total = 0, this._nextDt = 0, this._actionInstant = !1, this._innerAction = null, e !== void 0 && this.initWithAction(t, e);
   }
@@ -1496,7 +1597,7 @@ class P extends h {
     return this.initWithDuration(i) ? (this._times = e, this._innerAction = t, t instanceof E && (this._actionInstant = !0, this._times -= 1), this._total = 0, !0) : !1;
   }
   clone() {
-    const t = new P();
+    const t = new O();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone(), this._times), t;
   }
   startWithTarget(t) {
@@ -1520,7 +1621,7 @@ class P extends h {
     return this._total === this._times;
   }
   reverse() {
-    const t = new P(this._innerAction.reverse(), this._times);
+    const t = new O(this._innerAction.reverse(), this._times);
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -1530,7 +1631,7 @@ class P extends h {
     return this._innerAction;
   }
 }
-class O extends h {
+class P extends h {
   constructor(t) {
     super(), this._innerAction = null, t && this.initWithAction(t);
   }
@@ -1538,7 +1639,7 @@ class O extends h {
     return t ? (this._innerAction = t, !0) : !1;
   }
   clone() {
-    const t = new O();
+    const t = new P();
     return this.cloneDecoration(t), t.initWithAction(this._innerAction.clone()), t;
   }
   startWithTarget(t) {
@@ -1552,7 +1653,7 @@ class O extends h {
     return !1;
   }
   reverse() {
-    const t = new O(this._innerAction.reverse());
+    const t = new P(this._innerAction.reverse());
     return this.cloneDecoration(t), this.reverseEaseList(t), t;
   }
   setInnerAction(t) {
@@ -1835,8 +1936,8 @@ const W = class W {
   }
 };
 W._instance = null;
-let p = W;
-const fe = () => 0, de = (n) => n, _t = (n) => n * n, pt = (n) => n * (2 - n), ge = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), mt = (n) => n * n * n, wt = (n) => --n * n * n + 1, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), At = (n) => n * n * n * n, yt = (n) => 1 - --n * n * n * n, pe = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), vt = (n) => n * n * n * n * n, Ct = (n) => --n * n * n * n * n + 1, me = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), St = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), Tt = (n) => Math.sin(n * Math.PI / 2), we = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), bt = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), xt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), Ae = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), Mt = (n) => 1 - Math.sqrt(1 - n * n), It = (n) => Math.sqrt(1 - --n * n), ye = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), Et = (n) => {
+let _ = W;
+const fe = () => 0, ge = (n) => n, dt = (n) => n * n, _t = (n) => n * (2 - n), pe = (n) => (n *= 2, n < 1 ? 0.5 * n * n : -0.5 * (--n * (n - 2) - 1)), mt = (n) => n * n * n, vt = (n) => --n * n * n + 1, de = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n : 0.5 * ((n -= 2) * n * n + 2)), wt = (n) => n * n * n * n, yt = (n) => 1 - --n * n * n * n, _e = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n : -0.5 * ((n -= 2) * n * n * n - 2)), At = (n) => n * n * n * n * n, Ct = (n) => --n * n * n * n * n + 1, me = (n) => (n *= 2, n < 1 ? 0.5 * n * n * n * n * n : 0.5 * ((n -= 2) * n * n * n * n + 2)), Tt = (n) => n === 1 ? 1 : 1 - Math.cos(n * Math.PI / 2), St = (n) => Math.sin(n * Math.PI / 2), ve = (n) => 0.5 * (1 - Math.cos(Math.PI * n)), bt = (n) => n === 0 ? 0 : Math.pow(1024, n - 1), xt = (n) => n === 1 ? 1 : 1 - Math.pow(2, -10 * n), we = (n) => n === 0 ? 0 : n === 1 ? 1 : (n *= 2, n < 1 ? 0.5 * Math.pow(1024, n - 1) : 0.5 * (-Math.pow(2, -10 * (n - 1)) + 2)), Mt = (n) => 1 - Math.sqrt(1 - n * n), It = (n) => Math.sqrt(1 - --n * n), ye = (n) => (n *= 2, n < 1 ? -0.5 * (Math.sqrt(1 - n * n) - 1) : 0.5 * (Math.sqrt(1 - (n -= 2) * n) + 1)), Et = (n) => {
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), -(e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)));
@@ -1844,59 +1945,59 @@ const fe = () => 0, de = (n) => n, _t = (n) => n * n, pt = (n) => n * (2 - n), g
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), e * Math.pow(2, -10 * n) * Math.sin((n - t) * (2 * Math.PI) / i) + 1);
-}, ve = (n) => {
+}, Ae = (n) => {
   let t, e = 0.1;
   const i = 0.4;
   return n === 0 ? 0 : n === 1 ? 1 : (!e || e < 1 ? (e = 1, t = i / 4) : t = i * Math.asin(1 / e) / (2 * Math.PI), n *= 2, n < 1 ? -0.5 * (e * Math.pow(2, 10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i)) : e * Math.pow(2, -10 * (n -= 1)) * Math.sin((n - t) * (2 * Math.PI) / i) * 0.5 + 1);
-}, Pt = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Ot = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, Ce = (n) => {
+}, Ot = (n) => n === 1 ? 1 : n * n * ((1.70158 + 1) * n - 1.70158), Pt = (n) => n === 0 ? 0 : --n * n * ((1.70158 + 1) * n + 1.70158) + 1, Ce = (n) => {
   const t = 2.5949095;
   return n *= 2, n < 1 ? 0.5 * (n * n * ((t + 1) * n - t)) : 0.5 * ((n -= 2) * n * ((t + 1) * n + t) + 2);
-}, tt = (n) => 1 - R(1 - n), R = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, Se = (n) => n < 0.5 ? tt(n * 2) * 0.5 : R(n * 2 - 1) * 0.5 + 0.5, Te = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), be = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), _ = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, xe = _(_t, pt), Me = _(mt, wt), Ie = _(At, yt), Ee = _(vt, Ct), Be = _(St, Tt), Pe = _(bt, xt), Oe = _(Mt, It), De = _(Et, Bt), We = _(Pt, Ot), Le = _(tt, R), ht = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, tt = (n) => 1 - R(1 - n), R = (n) => n < 1 / 2.75 ? 7.5625 * n * n : n < 2 / 2.75 ? 7.5625 * (n -= 1.5 / 2.75) * n + 0.75 : n < 2.5 / 2.75 ? 7.5625 * (n -= 2.25 / 2.75) * n + 0.9375 : 7.5625 * (n -= 2.625 / 2.75) * n + 0.984375, Te = (n) => n < 0.5 ? tt(n * 2) * 0.5 : R(n * 2 - 1) * 0.5 + 0.5, Se = (n) => n <= 0 ? 0 : n * n * (3 - 2 * n), be = (n) => n <= 0 ? 0 : n * n * n * (n * (n * 6 - 15) + 10), d = (n, t) => (e) => e < 0.5 ? t(e * 2) / 2 : n(2 * e - 1) / 2 + 0.5, xe = d(dt, _t), Me = d(mt, vt), Ie = d(wt, yt), Ee = d(At, Ct), Be = d(Tt, St), Oe = d(bt, xt), Pe = d(Mt, It), De = d(Et, Bt), We = d(Ot, Pt), Le = d(tt, R), ht = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  backIn: Pt,
+  backIn: Ot,
   backInOut: Ce,
-  backOut: Ot,
+  backOut: Pt,
   backOutIn: We,
   bounceIn: tt,
-  bounceInOut: Se,
+  bounceInOut: Te,
   bounceOut: R,
   bounceOutIn: Le,
   circIn: Mt,
   circInOut: ye,
   circOut: It,
-  circOutIn: Oe,
+  circOutIn: Pe,
   constant: fe,
   cubicIn: mt,
-  cubicInOut: _e,
-  cubicOut: wt,
+  cubicInOut: de,
+  cubicOut: vt,
   cubicOutIn: Me,
   elasticIn: Et,
-  elasticInOut: ve,
+  elasticInOut: Ae,
   elasticOut: Bt,
   elasticOutIn: De,
   expoIn: bt,
-  expoInOut: Ae,
+  expoInOut: we,
   expoOut: xt,
-  expoOutIn: Pe,
+  expoOutIn: Oe,
   fade: be,
-  linear: de,
-  quadIn: _t,
-  quadInOut: ge,
-  quadOut: pt,
+  linear: ge,
+  quadIn: dt,
+  quadInOut: pe,
+  quadOut: _t,
   quadOutIn: xe,
-  quartIn: At,
-  quartInOut: pe,
+  quartIn: wt,
+  quartInOut: _e,
   quartOut: yt,
   quartOutIn: Ie,
-  quintIn: vt,
+  quintIn: At,
   quintInOut: me,
   quintOut: Ct,
   quintOutIn: Ee,
-  sineIn: St,
-  sineInOut: we,
-  sineOut: Tt,
+  sineIn: Tt,
+  sineInOut: ve,
+  sineOut: St,
   sineOutIn: Be,
-  smooth: Te
+  smooth: Se
 }, Symbol.toStringTag, { value: "Module" })), Fe = (n) => {
   const t = n.charAt(0);
   if (/[A-Z]/.test(t)) {
@@ -1986,12 +2087,12 @@ class D extends h {
     s.easing && (r = s.easing(t));
     const o = s.progress;
     for (const c in i) {
-      const a = i[c], g = a.easing ? a.easing(t) : r, u = a.progress ? a.progress : o, d = a.start, T = a.end;
-      if (typeof d == "number")
-        a.current = u(d, T, a.current, g);
-      else if (typeof d == "object")
-        for (const w in d)
-          a.current[w] = u(d[w], T[w], a.current[w], g);
+      const a = i[c], p = a.easing ? a.easing(t) : r, u = a.progress ? a.progress : o, g = a.start, S = a.end;
+      if (typeof g == "number")
+        a.current = u(g, S, a.current, p);
+      else if (typeof g == "object")
+        for (const v in g)
+          a.current[v] = u(g[v], S[v], a.current[v], p);
       e[c] = a.current;
     }
     s.onUpdate && s.onUpdate(this.target, t), t === 1 && s.onComplete && s.onComplete(this.target);
@@ -2033,10 +2134,10 @@ const f = class f {
     return this._target = t, this;
   }
   start() {
-    return this._target ? (this._finalAction && p.instance.ActionManager.removeAction(this._finalAction), this._finalAction = this._union(), this._finalAction.tag = this._tag, p.instance.ActionManager.addAction(this._finalAction, this._target, !1), this) : (console.warn("Please set target to tween first"), this);
+    return this._target ? (this._finalAction && _.instance.ActionManager.removeAction(this._finalAction), this._finalAction = this._union(), this._finalAction.tag = this._tag, _.instance.ActionManager.addAction(this._finalAction, this._target, !1), this) : (console.warn("Please set target to tween first"), this);
   }
   stop() {
-    return this._finalAction && p.instance.ActionManager.removeAction(this._finalAction), this;
+    return this._finalAction && _.instance.ActionManager.removeAction(this._finalAction), this;
   }
   clone(t) {
     const e = this._union();
@@ -2065,7 +2166,7 @@ const f = class f {
     return this._actions.push(e), this;
   }
   call(t) {
-    const e = new k(t);
+    const e = new Z(t);
     return this._actions.push(e), this;
   }
   sequence(...t) {
@@ -2082,14 +2183,14 @@ const f = class f {
     const i = this._actions;
     let s;
     e instanceof f ? s = e._union() : s = i.pop();
-    const r = new P(s, t);
+    const r = new O(s, t);
     return i.push(r), this;
   }
   repeatForever(t) {
     const e = this._actions;
     let i;
     t instanceof f ? i = t._union() : i = e.pop();
-    const s = new O(i);
+    const s = new P(i);
     return e.push(s), this;
   }
   reverseTime(t) {
@@ -2100,18 +2201,18 @@ const f = class f {
     return e.push(s), this;
   }
   static stopAll() {
-    p.instance.ActionManager.removeAllActions();
+    _.instance.ActionManager.removeAllActions();
   }
   static stopAllByTag(t, e) {
-    p.instance.ActionManager.removeAllActionsByTag(t, e);
+    _.instance.ActionManager.removeAllActionsByTag(t, e);
   }
   static stopAllByTarget(t) {
-    p.instance.ActionManager.removeAllActionsFromTarget(t);
+    _.instance.ActionManager.removeAllActionsFromTarget(t);
   }
   _union() {
     const t = this._actions;
     let e;
-    return t.length === 1 ? e = t[0] : e = N(t), e;
+    return t.length === 1 ? e = t[0] : e = U(t), e;
   }
   static _wrappedSequence(...t) {
     const e = f._tmp_args;
@@ -2120,7 +2221,7 @@ const f = class f {
       const r = e[s] = t[s];
       r instanceof f && (e[s] = r._union());
     }
-    return N.apply(N, e);
+    return U.apply(U, e);
   }
   static _wrappedParallel(...t) {
     const e = f._tmp_args;
@@ -2134,7 +2235,7 @@ const f = class f {
 };
 f._tmp_args = [];
 let lt = f;
-class Ue {
+class je {
   constructor(t) {
     this._viewBuilder = t;
   }
@@ -2204,7 +2305,7 @@ class ft {
     this._gameSpeed = t, this._lifecycle.setSpeedMultiplier(this._gameSpeed), this._spineController.multyplyTimeScaleAll(this._gameSpeed);
   }
 }
-class dt {
+class gt {
   constructor(t) {
     this._viewBuilder = t, this._prefabs = /* @__PURE__ */ new Map();
   }
@@ -2249,19 +2350,19 @@ class dt {
     return this._viewBuilder.create(i, e);
   }
 }
-class je extends Rt {
+class He extends Rt {
   connectRender(t, e) {
-    this.registerGlobalServices([{ provide: G, useFactory: () => t }]), this.appendToDOM(t, e), this.connectDebugger(t);
+    this.registerGlobalServices([{ provide: N, useFactory: () => t }]), this.appendToDOM(t, e), this.connectDebugger(t);
   }
   init() {
     super.init();
-    const t = l.instance.get(G);
+    const t = l.instance.get(N);
     this.initializeDependencies(t);
     const e = l.instance.get(it), i = l.instance.get($);
     this.createStage(t), this.createRootView("Scene", t), this.createRootView("Shared", t), e.addUpdateCallback((s) => this.update(s, i));
   }
   update(t, e) {
-    e.update(t), p.instance.update(t);
+    e.update(t), _.instance.update(t);
   }
   appendToDOM(t, e) {
     e.appendChild(t.view);
@@ -2270,24 +2371,24 @@ class je extends Rt {
     globalThis.__PIXI_APP__ = t;
   }
   initializeDependencies(t) {
-    const e = new M(), i = new H(e), s = new dt(i), r = new U(), o = new rt(e), c = new B(), a = new $(), g = new j(), u = new ot(), d = new at(), T = new ut(t, i, c), w = l.instance.get(it), v = l.instance.get(zt), Dt = new ft(w, v, g);
+    const e = new M(), i = new H(e), s = new gt(i), r = new G(), o = new rt(e), c = new B(), a = new $(), p = new j(), u = new ot(), g = new at(), S = new ut(t, i, c), v = l.instance.get(it), A = l.instance.get(zt), Dt = new ft(v, A, p);
     this.registerGlobalServices([
       { provide: M, useFactory: () => e },
       { provide: H, useFactory: () => i },
-      { provide: dt, useFactory: () => s },
-      { provide: U, useFactory: () => r },
+      { provide: gt, useFactory: () => s },
+      { provide: G, useFactory: () => r },
       { provide: rt, useFactory: () => o },
       { provide: B, useFactory: () => c },
       { provide: $, useFactory: () => a },
-      { provide: j, useFactory: () => g },
+      { provide: j, useFactory: () => p },
       { provide: ot, useFactory: () => u },
-      { provide: at, useFactory: () => d },
-      { provide: ut, useFactory: () => T },
+      { provide: at, useFactory: () => g },
+      { provide: ut, useFactory: () => S },
       { provide: ft, useFactory: () => Dt }
     ]);
   }
   createStage(t) {
-    const e = l.instance.get(B), i = new Ut.Stage();
+    const e = l.instance.get(B), i = new Gt.Stage();
     i.sortableChildren = !0, t.stage = i, t.stage.x = t.view.width / 2, t.stage.y = t.view.height / 2, e.setStage(i), e.sortAll();
   }
   createRootView(t, e) {
@@ -2299,27 +2400,28 @@ export {
   ee as Asset,
   L as AssetStatus,
   M as AssetsManager,
-  je as EmpressPixiCore,
+  He as EmpressPixiCore,
+  Ue as EventGuard,
   ft as FlowController,
   B as Layers,
   rt as Loader,
   b as NodeBuilder,
   ce as ObjectPool,
   Kt as OnElementInteractSignal,
-  Zt as OnViewCreatedSignal,
+  Qt as OnViewCreatedSignal,
   $ as ParticleEmitter,
-  kt as PixiEntity,
+  Zt as PixiEntity,
   Ge as PixiItemPoolFactory,
   at as PoolsController,
-  dt as PrefabService,
-  Ue as Scene,
+  gt as PrefabService,
+  je as Scene,
   ut as SceneController,
   j as SpineController,
   ot as SpineUtils,
   lt as Tween,
   D as TweenAction,
-  p as TweenSystem,
+  _ as TweenSystem,
   Ne as View,
   H as ViewBuilder,
-  U as ViewEntity
+  G as ViewEntity
 };

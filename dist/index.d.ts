@@ -148,6 +148,42 @@ export declare class EmpressPixiCore extends EmpressCore {
 
 export declare type EntityFactory = (view: Container) => IEntity;
 
+export declare class EventGuard {
+    static pointerCancel(data: IInteraction, name: string): () => boolean;
+    static pointerDown(data: IInteraction, name: string): () => boolean;
+    static pointerEnter(data: IInteraction, name: string): () => boolean;
+    static pointerLeave(data: IInteraction, name: string): () => boolean;
+    static pointerMove(data: IInteraction, name: string): () => boolean;
+    static globalPointerMove(data: IInteraction, name: string): () => boolean;
+    static pointerOut(data: IInteraction, name: string): () => boolean;
+    static pointerOver(data: IInteraction, name: string): () => boolean;
+    static pointerTap(data: IInteraction, name: string): () => boolean;
+    static pointerUp(data: IInteraction, name: string): () => boolean;
+    static pointerUpOutside(data: IInteraction, name: string): () => boolean;
+    static mouseDown(data: IInteraction, name: string): () => boolean;
+    static mouseEnter(data: IInteraction, name: string): () => boolean;
+    static mouseLeave(data: IInteraction, name: string): () => boolean;
+    static mouseMove(data: IInteraction, name: string): () => boolean;
+    static globalMouseMove(data: IInteraction, name: string): () => boolean;
+    static mouseOut(data: IInteraction, name: string): () => boolean;
+    static mouseOver(data: IInteraction, name: string): () => boolean;
+    static mouseUp(data: IInteraction, name: string): () => boolean;
+    static mouseUpOutside(data: IInteraction, name: string): () => boolean;
+    static click(data: IInteraction, name: string): () => boolean;
+    static touchCancel(data: IInteraction, name: string): () => boolean;
+    static touchEnd(data: IInteraction, name: string): () => boolean;
+    static touchEndOutside(data: IInteraction, name: string): () => boolean;
+    static touchMove(data: IInteraction, name: string): () => boolean;
+    static globalTouchMove(data: IInteraction, name: string): () => boolean;
+    static touchStart(data: IInteraction, name: string): () => boolean;
+    static tap(data: IInteraction, name: string): () => boolean;
+    static wheel(data: IInteraction, name: string): () => boolean;
+    static rightClick(data: IInteraction, name: string): () => boolean;
+    static rightDown(data: IInteraction, name: string): () => boolean;
+    static rightUp(data: IInteraction, name: string): () => boolean;
+    static rightUpOutside(data: IInteraction, name: string): () => boolean;
+}
+
 declare class FiniteTimeAction extends Action {
     _duration: number;
     _timesForRepeat: number;
